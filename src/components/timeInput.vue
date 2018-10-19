@@ -1,9 +1,11 @@
 <template lang="html">
   <form class="" @submit="testing" action="" method="post">
-    <div class=""  v-bind:key="item.id" v-for="item in timesInput">
-      <label v-bind:for="item.id">{{item.time}}</label>
-      <input type="time" v-bind:id="item.id" name="" value="00:00">
-    </div>
+    <label for="breakfastTime">breakfast time</label>
+    <input type="time" id="breakfastTime" name="" :value="breakfastTime">
+    <label for="lunchTime">lunch time</label>
+    <input type="time" id="lunchTime" name="" :value="lunchTime">
+    <label for="dinnerTime">dinner time</label>
+    <input type="time" id="dinnerTime" name="" :value="dinnerTime">
     <button type="submit" name="button">submit</button>
   </form>
 </template>
@@ -11,12 +13,20 @@
 <script>
 export default {
   name: "TimeInput",
+  mounted () {
+    if (localStorage.breakfastTime) {this.breakfastTime = localStorage.breakfastTime;}
+    if (localStorage.lunchTime) {this.lunchTime = localStorage.lunchTime;}
+    if (localStorage.dinnerTime) {this.dinnerTime = localStorage.dinnerTime;}
+  },
   methods: {
     testing : function (e) {
       e.preventDefault();
       for (var i = 0; i < (e.target.length); i++) {
         if (e.target[i].type === "time") {
-          console.log(e.target[i].value);
+          //set data value to value input
+          this[e.target[i].id] = e.target[i].value;
+          //set localStorage to value input
+          localStorage[e.target[i].id] = e.target[i].value;
         }
       }
     }
@@ -26,11 +36,6 @@ export default {
       breakfastTime: '',
       lunchTime: '',
       dinnerTime: '',
-      timesInput: [
-        {time:"breakfast", modelToUse: "breakfastTime", id:"breakfastId"},
-        {time:"lunch", modelToUse: "lunchTime", id:"lunchId"},
-        {time:"dinner", modelToUse: "dinnerTime", id:"dinnerId"},
-      ]
     }
   }
 }

@@ -6,18 +6,19 @@
       <button type="button" name="button" v-on:click="checking">Don't remind me</button>
       <hr />
     </div>
-
     <TimeInput />
-
+    <ScatInput />
   </div>
 </template>
 
 <script>
-import TimeInput from '@/components/timeInput.vue'
+import TimeInput from '@/components/timeInput.vue';
+import ScatInput from '@/components/scatInput';
 
 export default {
   components: {
-    TimeInput
+    TimeInput,
+    ScatInput
   },
   data: function () {
     return {
@@ -41,7 +42,7 @@ export default {
     checking() {
       this.check = !this.check;
       localStorage.check = this.check;
-    }
+    },
   }
 }
 </script>
