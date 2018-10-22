@@ -1,53 +1,58 @@
 <template lang="html">
   <form class="" @submit="newPoop" action="" method="post">
     <p>Vos humeurs du jour: {{humeursDisplay}}</p>
-    <br>
     <label for="">Humeurs</label>
+    <br>
     <select class="" name="" v-model="humeurs" multiple>
-      <option :value="item.value" v-for="item in humeursArray">{{item['text']}}</option>
+      <option :value="item.value" :key="item.value" v-for="item in humeursArray">{{item['text']}}</option>
     </select>
     <br>
     <label for="">Breakfast</label>
+    <br>
     <select class="" name="" v-model="breakfast" multiple>
-      <option :value="item" v-for="item in aliments">{{item}}</option>
+      <option :value="item" :key="item" v-for="item in aliments">{{item}}</option>
     </select>
+    <br>
     <label for="">Lunch</label>
+    <br>
     <select class="" name="" v-model="lunch" multiple>
-      <option :value="item" v-for="item in aliments">{{item}}</option>
+      <option :value="item" :key="item" v-for="item in aliments">{{item}}</option>
     </select>
+    <br>
     <label for="">Dinner</label>
+    <br>
     <select class="" name="" v-model="dinner" multiple>
-      <option :value="item" v-for="item in aliments">{{item}}</option>
+      <option :value="item" :key="item" v-for="item in aliments">{{item}}</option>
     </select>
     <br>
-    <label for="">Type</label>
+    <label for="">Type : </label>
     <select class="" name="" v-model="poopType">
-      <option :value="item" v-for="item in typesOfPoop">{{item}}</option>
+      <option :value="item" :key="item" v-for="item in typesOfPoop">{{item}}</option>
     </select>
     <br>
-    <label for="">color</label>
+    <label for="">color : </label>
     <select class="" name="" v-model="poopColor">
-      <option :value="item['value']" v-for="item in colorsofPoop">{{item["text"]}}</option>
+      <option :value="item['value']" :key="item['value']" v-for="item in colorsofPoop">{{item["text"]}}</option>
     </select>
     <br>
-    <label for="">time</label>
+    <label for="">time : </label>
     <select class="" name="" v-model="time">
-      <option :value="item" v-for="item in timesOfDay">{{item}}</option>
+      <option :value="item" :key="item" v-for="item in timesOfDay">{{item}}</option>
     </select>
+    <br>
+    <label for="">Date : </label>
+    <input type="date" name="" value="">
     <br>
     <button type="submit" name="button">new data test</button>
-    <br>
-    {{currentDay}}
   </form>
-
 </template>
 
 <script>
 export default {
   name: 'ScatInput',
-  data: function (){
+  data (){
     return {
-      allData: '',
+      allData: {},
       currentYear: '',
       currentMonth: '',
       currentDay: '',
@@ -67,31 +72,22 @@ export default {
   },
   mounted () {
     if (localStorage.data) {
-      let allData = JSON.parse(localStorage.data);
-      let currentYear = allData[allData.length - 1];
-      let currentMonth = currentYear.month[currentYear.month.length - 1];
-      let currentDay = currentMonth.day[currentMonth.day.length - 1];
-      let humors = currentDay.humeur;
-      this.allData = allData;
-      this.currentYear = currentYear;
-      this.currentMonth = currentMonth;
-      this.currentDay = currentDay;
-      this.humeurs = humors;
+      this.JsonParsing();
     }
     else {
-      const test = [{"year": 2017, "month": [{"idmonth": 1, "day": [{"idday": 12, "humeur" : [1], "poops": [{"idtime": "matin", "type": 1, "color": 1, "aliments": [{"meal":"breakfast", "food":["milk", "toast"]}, {"meal":"lunch", "food":["coke, cake"]}, {"meal":"dinner", "food":["soup", "meat"]}]}]}]}]}];
+      const test = [{"year": 2018, "month": [
+        {"idmonth": 8, "day": [
+          {"idday": 20, "humeur" : [1], "poops": [{"idtime": "matin", "type": 1, "color": 1, "aliments": [{"meal":"breakfast", "food":["milk", "toast"]}, {"meal":"lunch", "food":["coke, cake"]}, {"meal":"dinner", "food":["soup", "meat"]}]}]},
+          {"idday": 21, "humeur" : [1], "poops": [{"idtime": "matin", "type": 1, "color": 1, "aliments": [{"meal":"breakfast", "food":["milk", "toast"]}, {"meal":"lunch", "food":["coke, cake"]}, {"meal":"dinner", "food":["soup", "meat"]}]}]}
+        ]},
+        {"idmonth": 9, "day": [
+          {"idday": 20, "humeur" : [1], "poops": [{"idtime": "matin", "type": 1, "color": 1, "aliments": [{"meal":"breakfast", "food":["milk", "toast"]}, {"meal":"lunch", "food":["coke, cake"]}, {"meal":"dinner", "food":["soup", "meat"]}]}]},
+          {"idday": 21, "humeur" : [2], "poops": [{"idtime": "matin", "type": 1, "color": 1, "aliments": [{"meal":"breakfast", "food":["milk", "toast"]}, {"meal":"lunch", "food":["coke, cake"]}, {"meal":"dinner", "food":["soup", "meat"]}]}]}
+        ]},
+      ]}];
       const parsed = JSON.stringify(test);
       localStorage.data = parsed;
-      let allData = JSON.parse(localStorage.data);
-      let currentYear = allData[allData.length - 1];
-      let currentMonth = currentYear.month[currentYear.month.length - 1];
-      let currentDay = currentMonth.day[currentMonth.day.length - 1];
-      let humors = currentDay.humeur;
-      this.allData = allData;
-      this.currentYear = currentYear;
-      this.currentMonth = currentMonth;
-      this.currentDay = currentDay;
-      this.humeurs = humors;
+      this.JsonParsing();
     }
   },
   computed: {
@@ -109,7 +105,19 @@ export default {
     }
   },
   methods: {
-    newPoop: function (e) {
+    JsonParsing () {
+      let allData = JSON.parse(localStorage.data);
+      let currentYear = allData[allData.length - 1];
+      let currentMonth = currentYear.month[currentYear.month.length - 1];
+      let currentDay = currentMonth.day[currentMonth.day.length - 1];
+      let humors = currentDay.humeur;
+      this.allData = allData;
+      this.currentYear = currentYear;
+      this.currentMonth = currentMonth;
+      this.currentDay = currentDay;
+      this.humeurs = humors;
+    },
+    newPoop (e) {
       e.preventDefault();
       let date = new Date();
       let year = date.getFullYear();
@@ -123,7 +131,17 @@ export default {
       let lunch = this.lunch;
       let dinner = this.dinner;
       let dataToPush = '';
-      console.log("check");
+      for (var i = 0; i < (e.target.length); i++) {
+        if (e.target[i].type === "date") {
+          let value = e.target[i].value;
+          if (value) {
+            let array = value.split('-');
+            year = array[0];
+            month = (array[1] -1);
+            day = array[2];
+          }
+        }
+      }
       // Push logic for data
       // check if current year = current year from data
       if (year !== this.currentYear.year) {
@@ -147,19 +165,13 @@ export default {
         this.currentDay.poops.push(dataToPush);
         // push humor and new poop to day
       }
-      const parsed = JSON.stringify(this.allData);
+      let Sorted = this.allData.sort(function(a, b) {
+        return a.year - b.year;
+      });
+      const parsed = JSON.stringify(Sorted);
       localStorage.data = parsed;
       //
-      let allData = JSON.parse(localStorage.data);
-      let currentYear = allData[allData.length - 1];
-      let currentMonth = currentYear.month[currentYear.month.length - 1];
-      let currentDay = currentMonth.day[currentMonth.day.length - 1];
-      let humors = currentDay.humeur;
-      this.allData = allData;
-      this.currentYear = currentYear;
-      this.currentMonth = currentMonth;
-      this.currentDay = currentDay;
-      this.humeurs = humors;
+      this.JsonParsing();
     }
   }
 }

@@ -8,22 +8,29 @@
     </div>
     <TimeInput />
     <ScatInput />
+    <br>
+    <hr>
+    <br>
+    <ChartsDisplay />
   </div>
 </template>
 
 <script>
 import TimeInput from '@/components/timeInput.vue';
 import ScatInput from '@/components/scatInput';
+import ChartsDisplay from '@/components/chartsDisplay';
 
 export default {
   components: {
     TimeInput,
-    ScatInput
+    ScatInput,
+    ChartsDisplay
   },
   data: function () {
     return {
       check: true,
-      value: ''
+      value: '',
+      allData: []
     }
   },
   mounted() {
