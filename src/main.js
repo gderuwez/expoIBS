@@ -3,10 +3,12 @@ import App from './App.vue'
 import router from './router'
 import VueChartkick from 'vue-chartkick'
 import Chart from 'chart.js'
+import VueSpinners from 'vue-spinners'
 
 Vue.config.productionTip = false
 
 Vue.use(VueChartkick, {adapter: Chart})
+Vue.use(VueSpinners)
 
 new Vue({
   router,

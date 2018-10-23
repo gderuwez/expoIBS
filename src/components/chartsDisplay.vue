@@ -4,6 +4,7 @@
     <button type="button" name="button" v-on:click="clickChart">Display chart</button>
     <button type="button" name="button" v-on:click="monthForward" :disabled="limitFront">NextMonth</button>
     <h3>Mois du {{monthDisplayed}}</h3>
+    {{arrayHumorMonth}}
     <p>Votre humeur moyenne du mois : {{averageHumor}} </p>
     <p> nombre de poop pour ce mois : {{totalPoopOfMonth}}</p>
     <br>
@@ -13,6 +14,9 @@
       <br>
       <label for="">Pourcentage de poop par humeur</label>
       <column-chart :data="poopByHumor" suffix="%" :colors="['#666']"></column-chart>
+      <br>
+      <label for="">Poop per humor per month</label>
+      <line-chart :colors="['#b00', '#666']" :data="arrayHumorMonth" ></line-chart>
     </div>
   </div>
 </template>
@@ -216,7 +220,69 @@ export default {
     monthDisplayed () {
       let date = new Date(this.yearCheck, this.monthCheck);
       return date.toDateString();
-    }
+    },
+    arrayHumorMonth () {
+      let allData = this.allData;
+      let MonthlyHumor = [];
+      if (allData) {
+        allData.forEach((year) => {
+          let date = new Date();
+          date.setFullYear(year.year);
+          year.month.forEach((month) => {
+            let store = [];
+            let average;
+            date.setMonth(month.idmonth);
+            let stringDate = date.toDateString();
+            let arrayDate = stringDate.split(' ');
+            let newArrayDate = [];
+            newArrayDate.push(arrayDate[1]);
+            newArrayDate.push(arrayDate[3]);
+            let date2 = newArrayDate[0] + ' ' + newArrayDate[1];
+            let poopOfMonth = 0;
+            month.day.forEach((day) => {
+              poopOfMonth += day.poops.length;
+              day.humeur.forEach((item) => {
+                store.push(item);
+              });
+            });
+            let frequency = {};  // array of frequency.
+            let max = 0;  // holds the max frequency.
+            let result;   // holds the max frequency element.
+            for(var i in store) {
+              frequency[store[i]]=(frequency[store[i]] || 0)+1; // increment frequency.
+              if(frequency[store[i]] > max) { // is this frequency > max so far ?
+                      max = frequency[store[i]];  // update max.
+                      result = store[i];          // update result.
+              }
+            }
+            switch (result) {
+              case 1:
+                average = "Sérénité"
+                break;
+              case 2:
+                average = "Joie"
+                break;
+              case 3:
+                average = "Angoisse"
+                break;
+              case 4:
+                average = "Colère"
+                break;
+              case 5:
+                average = "tristesse"
+                break;
+              case 6:
+                average = "malade"
+                break;
+              default:
+            }
+            let toPush = [date2 + ' : ' + average, poopOfMonth];
+            MonthlyHumor.push(toPush);
+          });
+        });
+        return MonthlyHumor;
+      }
+    },
   },
   methods : {
     monthBack () {

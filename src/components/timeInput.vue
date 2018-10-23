@@ -13,10 +13,13 @@
 <script>
 export default {
   name: "TimeInput",
-  mounted () {
-    if (localStorage.breakfastTime) {this.breakfastTime = localStorage.breakfastTime;}
-    if (localStorage.lunchTime) {this.lunchTime = localStorage.lunchTime;}
-    if (localStorage.dinnerTime) {this.dinnerTime = localStorage.dinnerTime;}
+  props: {
+    loggedName: String
+  },
+  mounted() {
+    localStorage['breakfastTime'+this.loggedName] ? this.breakfastTime = localStorage['breakfastTime'+this.loggedName] : this.breakfastTime = '00:00';
+    localStorage['lunchTime'+this.loggedName] ? this.lunchTime = localStorage['lunchTime'+this.loggedName] : this.lunchTime = '00:00';
+    localStorage['dinnerTime'+this.loggedName] ? this.dinnerTime = localStorage['dinnerTime'+this.loggedName] : this.dinnerTime = '00:00';
   },
   methods: {
     testing : function (e) {
@@ -26,7 +29,8 @@ export default {
           //set data value to value input
           this[e.target[i].id] = e.target[i].value;
           //set localStorage to value input
-          localStorage[e.target[i].id] = e.target[i].value;
+          console.log(this.loggedName);
+          localStorage[e.target[i].id + this.loggedName] = e.target[i].value;
         }
       }
     }

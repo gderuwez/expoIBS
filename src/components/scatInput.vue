@@ -50,8 +50,12 @@
 <script>
 export default {
   name: 'ScatInput',
+  props: {
+    loggedName: String
+  },
   data (){
     return {
+      loaded: false,
       allData: {},
       currentYear: '',
       currentMonth: '',
@@ -70,43 +74,60 @@ export default {
       timesOfDay: ["Matin", "Midi", "Soir", "Nuit"]
     }
   },
-  mounted () {
-    if (localStorage.data) {
-      this.JsonParsing();
-    }
-    else {
-      const test = [{"year": 2018, "month": [
-        {"idmonth": 8, "day": [
-          {"idday": 20, "humeur" : [1], "poops": [{"idtime": "matin", "type": 1, "color": 1, "aliments": [{"meal":"breakfast", "food":["milk", "toast"]}, {"meal":"lunch", "food":["coke, cake"]}, {"meal":"dinner", "food":["soup", "meat"]}]}]},
-          {"idday": 21, "humeur" : [1], "poops": [{"idtime": "matin", "type": 1, "color": 1, "aliments": [{"meal":"breakfast", "food":["milk", "toast"]}, {"meal":"lunch", "food":["coke, cake"]}, {"meal":"dinner", "food":["soup", "meat"]}]}]}
-        ]},
-        {"idmonth": 9, "day": [
-          {"idday": 20, "humeur" : [1], "poops": [{"idtime": "matin", "type": 1, "color": 1, "aliments": [{"meal":"breakfast", "food":["milk", "toast"]}, {"meal":"lunch", "food":["coke, cake"]}, {"meal":"dinner", "food":["soup", "meat"]}]}]},
-          {"idday": 21, "humeur" : [2], "poops": [{"idtime": "matin", "type": 1, "color": 1, "aliments": [{"meal":"breakfast", "food":["milk", "toast"]}, {"meal":"lunch", "food":["coke, cake"]}, {"meal":"dinner", "food":["soup", "meat"]}]}]}
-        ]},
-      ]}];
-      const parsed = JSON.stringify(test);
-      localStorage.data = parsed;
-      this.JsonParsing();
+  watch: {
+    loggedName: function () {
+      if (localStorage["data" + this.loggedName]) {
+        this.JsonParsing();
+      }
+      else {
+        const test = [{"year": 2018, "month": [
+          {"idmonth": 8, "day": [
+            {"idday": 20, "humeur" : [1], "poops": [{"idtime": "matin", "type": 1, "color": 1, "aliments": [{"meal":"breakfast", "food":["milk", "toast"]}, {"meal":"lunch", "food":["coke, cake"]}, {"meal":"dinner", "food":["soup", "meat"]}]}]},
+            {"idday": 21, "humeur" : [1], "poops": [{"idtime": "matin", "type": 1, "color": 1, "aliments": [{"meal":"breakfast", "food":["milk", "toast"]}, {"meal":"lunch", "food":["coke, cake"]}, {"meal":"dinner", "food":["soup", "meat"]}]}]}
+          ]},
+          {"idmonth": 9, "day": [
+            {"idday": 20, "humeur" : [2], "poops": [{"idtime": "matin", "type": 1, "color": 1, "aliments": [{"meal":"breakfast", "food":["milk", "toast"]}, {"meal":"lunch", "food":["coke, cake"]}, {"meal":"dinner", "food":["soup", "meat"]}]}]},
+            {"idday": 21, "humeur" : [2], "poops": [{"idtime": "matin", "type": 1, "color": 1, "aliments": [{"meal":"breakfast", "food":["milk", "toast"]}, {"meal":"lunch", "food":["coke, cake"]}, {"meal":"dinner", "food":["soup", "meat"]}]}]}
+          ]},
+        ]}];
+        const parsed = JSON.stringify(test);
+        localStorage["data" + this.loggedName] = parsed;
+        this.JsonParsing();
+      }
     }
   },
   computed: {
     humeursDisplay() {
       let result = [];
       for (var item in this.humeurs) {
-        if (this.humeurs[item] == 1) {result.push("Sérénité");}
-        if (this.humeurs[item] == 2) {result.push("Joie");}
-        if (this.humeurs[item] == 3) {result.push("angoisse");}
-        if (this.humeurs[item] == 4) {result.push("colère");}
-        if (this.humeurs[item] == 5) {result.push("tristesse");}
-        if (this.humeurs[item] == 6) {result.push("malade");}
+          switch (this.humeurs[item]) {
+          case 1:
+            result.push("Sérénité");
+            break;
+          case 2:
+            result.push("Joie");
+            break;
+          case 3:
+            result.push("angoisse");
+            break;
+          case 4:
+            result.push("colère");
+            break;
+          case 5:
+            result.push("tristesse");
+            break;
+          case 6:
+            result.push("malade");
+            break;
+          default:
+        }
       }
       return result;
     }
   },
   methods: {
     JsonParsing () {
-      let allData = JSON.parse(localStorage.data);
+      let allData = JSON.parse(localStorage["data" + this.loggedName]);
       let currentYear = allData[allData.length - 1];
       let currentMonth = currentYear.month[currentYear.month.length - 1];
       let currentDay = currentMonth.day[currentMonth.day.length - 1];
@@ -169,9 +190,11 @@ export default {
         return a.year - b.year;
       });
       const parsed = JSON.stringify(Sorted);
-      localStorage.data = parsed;
+      localStorage["data" + this.loggedName] = parsed;
       //
       this.JsonParsing();
+      let dateCheck = new Date();
+      this.$emit('dateCheck', dateCheck);
     }
   }
 }
