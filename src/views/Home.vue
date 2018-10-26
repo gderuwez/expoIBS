@@ -1,20 +1,21 @@
 <template>
-  <div class="">
-    <Logout />
-    <br>
-    <Sequential :PostedDate="dateCheckValue" :loggedName="loggedName"/>
-    <div v-if="check" class="">
-      <p >Cette application est un outil pour mieux se connaître. Elle ne remplace en aucun cas l'avis d'un professionel. En cas de doute, consultez votre medecin</p>
-      <p >Les données collectées par cette application ne sont pas storée en ligne, toute les données son présente uniquement sur votre appareil.</p>
-      <button type="button" name="button" v-on:click="checking">Don't remind me</button>
-      <hr />
+  <div>
+    <Header />
+    <div class="w3-container">
+      <Sequential :PostedDate="dateCheckValue" :loggedName="loggedName"/>
+      <div v-if="check" class="">
+        <p >Cette application est un outil pour mieux se connaître. Elle ne remplace en aucun cas l'avis d'un professionel. En cas de doute, consultez votre medecin</p>
+        <p >Les données collectées par cette application ne sont pas storée en ligne, toute les données son présente uniquement sur votre appareil.</p>
+        <button type="button" name="button" v-on:click="checking">Don't remind me</button>
+        <hr />
+      </div>
+      <TimeInput :loggedName="loggedName" />
+      <ScatInput @dateCheck="dateCheck" :loggedName="loggedName"/>
+      <br>
+      <hr>
+      <br>
+      <ChartsDisplay :loggedName="loggedName"/>
     </div>
-    <TimeInput :loggedName="loggedName" />
-    <ScatInput @dateCheck="dateCheck" :loggedName="loggedName"/>
-    <br>
-    <hr>
-    <br>
-    <ChartsDisplay />
   </div>
 </template>
 
@@ -23,7 +24,8 @@ import TimeInput from '@/components/timeInput.vue';
 import ScatInput from '@/components/scatInput';
 import ChartsDisplay from '@/components/chartsDisplay';
 import Sequential from '@/components/sequential';
-import Logout from '@/components/logout';
+import Header from '@/components/header'
+
 
 export default {
   components: {
@@ -31,7 +33,7 @@ export default {
     ScatInput,
     ChartsDisplay,
     Sequential,
-    Logout
+    Header
   },
   data () {
     return {

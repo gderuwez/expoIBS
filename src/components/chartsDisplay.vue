@@ -4,7 +4,6 @@
     <button type="button" name="button" v-on:click="clickChart">Display chart</button>
     <button type="button" name="button" v-on:click="monthForward" :disabled="limitFront">NextMonth</button>
     <h3>Mois du {{monthDisplayed}}</h3>
-    {{arrayHumorMonth}}
     <p>Votre humeur moyenne du mois : {{averageHumor}} </p>
     <p> nombre de poop pour ce mois : {{totalPoopOfMonth}}</p>
     <br>
@@ -32,8 +31,17 @@ export default {
       monthCheck : ''
     }
   },
+  props: {
+    loggedName: String
+  },
+  watch: {
+    loggedName () {
+      if (localStorage["data" + this.loggedName]) {
+        this.JsonParsing();
+      }
+    }
+  },
   mounted () {
-    this.JsonParsing ();
     let dateCheck = new Date();
     this.yearCheck = dateCheck.getFullYear();
     this.monthCheck = dateCheck.getMonth();
@@ -309,7 +317,7 @@ export default {
       this.check = !this.check;
     },
     JsonParsing () {
-      let allData = JSON.parse(localStorage.data);
+      let allData = JSON.parse(localStorage["data" + this.loggedName]);
       this.allData = allData;
     },
   }

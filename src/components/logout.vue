@@ -1,5 +1,5 @@
 <template lang="html">
-  <button type="button" name="button" v-on:click="logingOut">Disconnect</button>
+  <button class="w3-button w3-indigo w3-display-topright" type="button" name="button" v-on:click="logingOut">Disconnect</button>
 </template>
 
 <script>

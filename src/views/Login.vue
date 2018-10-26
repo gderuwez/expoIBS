@@ -1,5 +1,6 @@
 <template lang="html">
   <div class="">
+    <Header />
     <form class="" action="" method="post">
       <label for="">Name</label>
       <input type="text" name="" value="" v-model="nameInput">
@@ -16,7 +17,12 @@
 </template>
 
 <script>
+import Header from '@/components/header'
+
 export default {
+  components: {
+    Header
+  },
   data () {
     return {
       nameInput: '',
