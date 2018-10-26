@@ -1,0 +1,26 @@
+[
+  {
+    "year": 2017,
+    "month":
+    [
+      {
+        "month": 1,
+        "day":
+        [
+          {
+            "day": 12,
+            "humeur" : ["serenité", "colère"],
+            "poops": {
+              "time": 123,
+              "type": 1,
+              "color": 1,
+              "aliments": ["coke", "sausage"]
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
+
+{"year": 2017, "month": [{"idmonth": 1, "day": [{"idday": 12, "humeur" : ["serenité", "colère"], "poops": [{"idtime": 123, "type": 1, "color": 1, "aliments": ["coke", "sausage"]}]}]}]}
