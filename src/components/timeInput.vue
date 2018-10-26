@@ -29,7 +29,6 @@ export default {
           //set data value to value input
           this[e.target[i].id] = e.target[i].value;
           //set localStorage to value input
-          console.log(this.loggedName);
           localStorage[e.target[i].id + this.loggedName] = e.target[i].value;
         }
       }

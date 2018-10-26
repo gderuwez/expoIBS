@@ -1,5 +1,7 @@
 <template>
   <div class="">
+    <Logout />
+    <br>
     <Sequential :PostedDate="dateCheckValue" :loggedName="loggedName"/>
     <div v-if="check" class="">
       <p >Cette application est un outil pour mieux se connaître. Elle ne remplace en aucun cas l'avis d'un professionel. En cas de doute, consultez votre medecin</p>
@@ -21,13 +23,15 @@ import TimeInput from '@/components/timeInput.vue';
 import ScatInput from '@/components/scatInput';
 import ChartsDisplay from '@/components/chartsDisplay';
 import Sequential from '@/components/sequential';
+import Logout from '@/components/logout';
 
 export default {
   components: {
     TimeInput,
     ScatInput,
     ChartsDisplay,
-    Sequential
+    Sequential,
+    Logout
   },
   data () {
     return {

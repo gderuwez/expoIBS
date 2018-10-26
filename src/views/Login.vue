@@ -5,6 +5,10 @@
       <input type="text" name="" value="" v-model="nameInput">
       <p v-if="errorMessage">{{errorMessage}}</p>
       <br>
+      <label for="">Password</label>
+      <input type="password" name="" value="" v-model="passwordInput">
+      <p v-if="errorMessage2">{{errorMessage2}}</p>
+      <br>
       <button type="submit" name="button" v-on:click="logging">Login</button>
       <button type="submit" name="button" v-on:click="registering">Register</button>
     </form>
@@ -16,7 +20,9 @@ export default {
   data () {
     return {
       nameInput: '',
-      errorMessage: ''
+      passwordInput: '',
+      errorMessage: '',
+      errorMessage2: ''
     }
   },
   methods: {
@@ -31,9 +37,14 @@ export default {
             this.errorMessage = 'This username already exists';
             break;
           }
+          if (dataToCheckAgainst[i].Password === this.passwordInput) {
+            check = false;
+            this.errorMessage = 'This password already exists';
+            break;
+          }
         }
         if (check) {
-          let dataToPush = {Name: this.nameInput, isLoggedIn: true};
+          let dataToPush = {Name: this.nameInput, isLoggedIn: true, Password: this.passwordInput};
           dataToCheckAgainst.push(dataToPush);
           const parsed = JSON.stringify(dataToCheckAgainst);
           localStorage.users = parsed;
@@ -41,12 +52,20 @@ export default {
         }
       }
       else {
-        let dataToPush = {Name: this.nameInput, isLoggedIn: true};
-        let users = [];
-        users.push(dataToPush);
-        const parsed = JSON.stringify(users);
-        localStorage.users = parsed;
-        this.$router.push({ name: 'loading' })
+        if (!this.nameInput) {
+          this.errorMessage = "enter a username";
+        }
+        if (!this.passwordInput) {
+          this.errorMessage2 = "enter a password";
+        }
+        if (this.nameInput && this.passwordInput) {
+          let dataToPush = {Name: this.nameInput, isLoggedIn: true, Password: this.passwordInput};
+          let users = [];
+          users.push(dataToPush);
+          const parsed = JSON.stringify(users);
+          localStorage.users = parsed;
+          this.$router.push({ name: 'loading' })
+        }
       }
     },
     logging (e) {
@@ -54,8 +73,16 @@ export default {
       if (localStorage.users) {
         let dataToCheckAgainst = JSON.parse(localStorage.users);
         let check = true;
+        let checkName = true;
+        let checkPassword = true;
         for (var i in dataToCheckAgainst) {
           if (dataToCheckAgainst[i].Name === this.nameInput) {
+            checkName = false;
+          }
+          if (dataToCheckAgainst[i].Password === this.passwordInput) {
+            checkPassword = false;
+          }
+          if (!checkName && !checkPassword) {
             check = false;
             dataToCheckAgainst[i].isLoggedIn = true;
             const parsed = JSON.stringify(dataToCheckAgainst);
@@ -64,8 +91,11 @@ export default {
             break;
           }
         }
-        if (check) {
-          this.errorMessage = "This username doesn't exist";
+        if (check && checkName) {
+          this.errorMessage = "This username is incorect";
+        }
+        if (check && checkPassword) {
+          this.errorMessage2 = "This password is incorect";
         }
       }
       else {
