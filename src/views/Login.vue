@@ -1,17 +1,23 @@
 <template lang="html">
   <div class="">
     <Header />
-    <form class="" action="" method="post">
-      <label for="">Name</label>
-      <input type="text" name="" value="" v-model="nameInput">
-      <p v-if="errorMessage">{{errorMessage}}</p>
-      <br>
-      <label for="">Password</label>
-      <input type="password" name="" value="" v-model="passwordInput">
-      <p v-if="errorMessage2">{{errorMessage2}}</p>
-      <br>
-      <button type="submit" name="button" v-on:click="logging">Login</button>
-      <button type="submit" name="button" v-on:click="registering">Register</button>
+    <form class="w3-container" action="" method="post">
+      <div class="w3-section">
+        <div class="w3-row">
+          <label  class="" for="">UserName</label>
+          <input class="w3-input" type="text" placeholder="Enter your username" v-model="nameInput">
+          <p v-if="errorMessage">{{errorMessage}}</p>
+        </div>
+        <div class="w3-row">
+          <label for="">Password</label>
+          <input class="w3-input" type="password" placeholder="Enter your password" v-model="passwordInput">
+          <p v-if="errorMessage2">{{errorMessage2}}</p>
+        </div>
+
+
+      </div>
+      <button class="w3-button w3-teal" type="submit" name="button" v-on:click="logging">Login</button>
+      <button class="w3-button w3-teal w3-margin-left" type="submit" name="button" v-on:click="registering">Register</button>
     </form>
   </div>
 </template>

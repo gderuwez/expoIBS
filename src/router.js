@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 import Spinner from './views/Spinner.vue'
+import Charts from './views/Charts.vue'
+import Modif from './views/Modif.vue'
 
 Vue.use(Router)
 
@@ -24,6 +26,16 @@ export default new Router({
       path: '/home',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/charts',
+      name: 'charts',
+      component: Charts
+    },
+    {
+      path: '/update',
+      name: 'update',
+      component: Modif
     },
     {
       path: '/about',

@@ -1,46 +1,42 @@
+<!-- ask what makes more sense ? base the sequence on real time or database time ? -->
 <template lang="html">
-  <div class="">
-    <p>you have consulted this app {{sequenceCheck}} days in a row.</p>
+  <div class="w3-border w3-padding">
+    <p>You have filled your journal {{sequenceCheck}} days in a row.</p>
   </div>
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
   name: 'Sequential',
   props: {
     loggedName: String,
-    PostedDate: Number,
-  },
-  data () {
-    return {
-      sequence: 0,
-      previousDate: 0,
-    }
+    dataSubmit: Boolean,
   },
   watch: {
     loggedName: function () {
-      if(!localStorage['date'+this.loggedName]) {
-        localStorage['date'+this.loggedName] = new Date().getTime();
-        localStorage['sequence'+this.loggedName] = this.sequence;
+      if(!localStorage['sequence'+this.loggedName]){localStorage['sequence'+this.loggedName] = 0;}
+      if(!localStorage["PreviousDataDate"+this.loggedName]){
+        localStorage["PreviousDataDate"+this.loggedName] = moment().year() + "-" + moment().month() + "-" + moment().subtract(1, 'days').date();
       }
-      this.previousDate = localStorage['date'+this.loggedName];
-      this.sequence = localStorage['sequence'+this.loggedName];
     }
   },
   computed: {
-    sequenceCheck() {
-      if (this.PostedDate) {
-        let CurrentDate = new Date(this.PostedDate);
-        let previousDate = new Date(parseInt(this.previousDate));
-        let sequence = this.sequence;
-        CurrentDate.getDate() !== previousDate.getDate() && CurrentDate.getTime() < previousDate.getTime() + 86400001 ? sequence += 1: sequence = 0;
-        localStorage['date'+this.loggedName] = CurrentDate.getTime();
-        localStorage['sequence'+this.loggedName] = this.sequence;
-        return sequence;
+    sequenceCheck () {
+      if(this.dataSubmit) {
+        let previous = localStorage['PreviousDataDate'+this.loggedName];
+        let current = localStorage["newDataDate"+this.loggedName];
+        if( moment(previous).isSame(moment(current).subtract(1, 'days'), 'days') ) {
+          localStorage['sequence'+this.loggedName] = parseInt(localStorage['sequence'+this.loggedName]) + 1;
+        }
+        else if ( !moment(previous).isSame(moment(current), 'days') ) {
+          localStorage['sequence'+this.loggedName] = 0;
+        }
+        localStorage['PreviousDataDate'+this.loggedName] = current;
+        this.$emit('newData');
       }
-      else {
-        return this.sequence;
-      }
+      return localStorage["sequence"+this.loggedName];
     }
   }
 }
