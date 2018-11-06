@@ -1,5 +1,7 @@
 <template lang="html">
-  <button type="button" name="button"> <a :href="savingJson" target="_blank" download="my-poop-data.json">save your data</a> </button>
+  <div class="w3-container">
+    <a class="w3-btn w3-block w3-indigo" :href="savingJson" target="_blank" download="my-poop-data.json">save your data</a>
+  </div>
 </template>
 
 <script>

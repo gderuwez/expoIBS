@@ -1,13 +1,27 @@
 <template lang="html">
   <div class="">
-    <button type="button" name="button" v-on:click="monthBack" :disabled="limitBack">Previous month</button>
-    <button type="button" name="button" v-on:click="clickChart">Display chart</button>
-    <button type="button" name="button" v-on:click="monthForward" :disabled="limitFront">NextMonth</button>
-    <h3>Mois du {{monthDisplayed}}</h3>
-    <p>Votre humeur moyenne du mois : {{averageHumor}} </p>
-    <p> nombre de poop pour ce mois : {{totalPoopOfMonth}}</p>
-    <br>
+    <div class="w3-container">
+      <p>Votre humeur moyenne du mois : {{averageHumor}} </p>
+      <p> nombre de poop pour ce mois : {{totalPoopOfMonth}}</p>
+      <button class="w3-deep-purple w3-block w3-center w3-btn w3-margin-bottom" type="button" name="button" v-on:click="clickChart">Display chart</button>
+    </div>
+
     <div class="" v-if="check">
+      <div class="w3-cell-row">
+        <div class="w3-cell">
+          <button class="w3-block w3-btn w3-deep-purple" name="button" @click="monthBack" :class="{'w3-disabled' : limitBack}">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+        </div>
+        <div class="w3-cell w3-teal w3-center">
+          {{monthDisplayed}}
+        </div>
+        <div class="w3-cell">
+          <button class="w3-block w3-btn w3-deep-purple" name="button" @click="monthForward" :class="{'w3-disabled' : limitFront}">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
       <label for="">nombre de poop par jour</label>
       <line-chart :colors="['#b00', '#666']" :data="displayByDay" ></line-chart>
       <br>
@@ -21,6 +35,8 @@
 </template>
 
 <script>
+import moment from 'moment'
+
 export default {
   name: 'ChartsDisplay',
   data () {
@@ -28,7 +44,8 @@ export default {
       allData : '',
       check: false,
       yearCheck : '',
-      monthCheck : ''
+      monthCheck : '',
+      dateContext : moment()
     }
   },
   props: {
@@ -42,47 +59,48 @@ export default {
     }
   },
   mounted () {
-    let dateCheck = new Date();
-    this.yearCheck = dateCheck.getFullYear();
-    this.monthCheck = dateCheck.getMonth();
+    this.yearCheck = moment().year()
+    this.monthCheck = moment().month();
   },
   computed: {
+    year() {
+      return this.dateContext.format('Y');
+    },
+    month() {
+      return this.dateContext.format('MMMM');
+    },
+    monthIndex() {
+      return this.dateContext.get('month');
+    },
+    monthDisplayed() {
+      return this.dateContext.format('MMM YYYY');
+    },
     limitBack () {
-      let allData = this.allData
-      let check = this.yearCheck.toString() + this.monthCheck.toString();
-      let isBackdisable = false;
-      if (allData) {
+      let check = this.year + '-' + this.monthIndex + '-01';
+      if (this.allData) {
+        let allData = this.allData;
         let firstYear = allData[0].year;
         let firstMonth = allData[0].month[0].idmonth;
-        let limit = firstYear.toString() + firstMonth.toString();
-        check > limit ? isBackdisable = false : isBackdisable = true
-        return isBackdisable;
-      }
-      else {
-        return isBackdisable;
+        let limit = firstYear + '-' + firstMonth + '-01';
+        return moment(check).isSameOrBefore(moment(limit));
       }
     },
     limitFront () {
-      let allData = this.allData
-      let check = this.yearCheck.toString() + this.monthCheck.toString();
-      let isFrontdisable = false;
-      if (allData) {
+      let check = this.year + '-' + this.monthIndex + '-01';
+      if(this.allData) {
+        let allData = this.allData;
         let LastYear = allData[allData.length - 1].year;
         let LastMonth = allData[allData.length - 1].month[allData[allData.length - 1].month.length - 1].idmonth;
-        let limit = LastYear.toString() + LastMonth.toString();
-        check < limit ? isFrontdisable = false : isFrontdisable = true
-        return isFrontdisable;
-      }
-      else {
-        return isFrontdisable;
+        let limit = LastYear + '-' + LastMonth + '-01';
+        return moment(check).isSameOrAfter(moment(limit));
       }
     },
     displayByDay() {
       // using ifss to select month / year
       let test2 = [];
       this.allData.forEach((year) => {
-        let monthCheck = this.monthCheck;
-        let yearCheck = this.yearCheck;
+        let monthCheck = this.monthIndex;
+        let yearCheck = this.year;
         // creating date to use in data
         let date = new Date();
         //setting year to use in data
@@ -114,8 +132,8 @@ export default {
         let store = [];
         let average;
         allData.forEach((year) => {
-          let monthCheck = this.monthCheck;
-          let yearCheck = this.yearCheck;
+          let monthCheck = this.monthIndex;
+          let yearCheck = this.year;
           if (year.year == yearCheck) {
             year.month.forEach((idmonth) => {
               if (idmonth.idmonth == monthCheck) {
@@ -206,8 +224,8 @@ export default {
       let test2 = 0;
       if (this.allData) {
         this.allData.forEach((year) => {
-          let monthCheck = this.monthCheck;
-          let yearCheck = this.yearCheck;
+          let monthCheck = this.monthIndex;
+          let yearCheck = this.year;
           // creating date to use in data
           if (year.year == yearCheck) {
             //checking months
@@ -224,10 +242,6 @@ export default {
         });
       }
       return test2;
-    },
-    monthDisplayed () {
-      let date = new Date(this.yearCheck, this.monthCheck);
-      return date.toDateString();
     },
     arrayHumorMonth () {
       let allData = this.allData;
@@ -294,24 +308,10 @@ export default {
   },
   methods : {
     monthBack () {
-      let newMonthCheck = this.monthCheck
-      if (newMonthCheck - 1 === -1) {
-        this.yearCheck -= 1;
-        this.monthCheck = 11;
-      }
-      else {
-        this.monthCheck -= 1;
-      }
+      this.dateContext = moment(this.dateContext).subtract(1, 'month');
     },
     monthForward () {
-      let newMonthCheck = this.monthCheck
-      if (newMonthCheck + 1 === 12) {
-        this.yearCheck += 1;
-        this.monthCheck = 0;
-      }
-      else {
-        this.monthCheck += 1;
-      }
+      this.dateContext = moment(this.dateContext).add(1, 'month');
     },
     clickChart () {
       this.check = !this.check;

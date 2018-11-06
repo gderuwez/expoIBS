@@ -1,16 +1,16 @@
 <template>
-  <div>
+  <div class="posCont">
     <Header />
-    <div class="">
+    <div class="posBod">
       <Sequential @newData="newData" :dataSubmit="dataSubmit" :loggedName="loggedName"/>
       <!-- <Reminder :loggedName="loggedName" /> -->
       <div>
         <!-- <TimeInput :loggedName="loggedName" /> -->
         <HumorOfTheDay :loggedName="loggedName"/>
         <ScatInput @newData="newData" :loggedName="loggedName"/>
-        <!-- <Saving :loggedName="loggedName" /> -->
       </div>
     </div>
+    <Footer />
   </div>
 </template>
 
@@ -19,9 +19,9 @@ import TimeInput from '@/components/timeInput.vue';
 import ScatInput from '@/components/scatInput';
 import Sequential from '@/components/sequential';
 import Header from '@/components/header';
-import Saving from '@/components/saving';
 import Reminder from '@/components/reminder';
 import HumorOfTheDay from '@/components/humorOfTheDay';
+import Footer from '@/components/footer';
 
 
 export default {
@@ -30,9 +30,9 @@ export default {
     ScatInput,
     Sequential,
     Header,
-    Saving,
     Reminder,
-    HumorOfTheDay
+    HumorOfTheDay,
+    Footer
   },
   data () {
     return {
@@ -49,12 +49,15 @@ export default {
   mounted() {
     if (localStorage.users) {
       let data = JSON.parse(localStorage.users);
+      let test = false;
       for (var i in data) {
         if(data[i].isLoggedIn) {
           this.loggedName = data[i].Name;
+          test = true;
           break;
         }
       }
+      if(!test) {this.$router.push({name: 'loading'});}
     }
     else {
       this.$router.push({name: 'loading'});
@@ -67,4 +70,11 @@ export default {
 </script>
 
 <style lang="css">
+.posCont {
+  min-height: 100%;
+  position: relative;
+}
+.posBod {
+  padding-bottom: 100px;
+}
 </style>

@@ -1,11 +1,13 @@
 <template lang="html">
-  <div class="">
+  <div class="posCont">
     <Header />
-    <div class="w3-container">
+    <div class="w3-container posBod">
       <HumorCalendar :loggedName="loggedName"/>
       <hr class="leftClear">
       <ChartsDisplay :loggedName="loggedName"/>
+      <Saving :loggedName="loggedName" />
     </div>
+    <Footer />
   </div>
 </template>
 
@@ -13,12 +15,16 @@
 import ChartsDisplay from '@/components/chartsDisplay';
 import Header from '@/components/header';
 import HumorCalendar from '@/components/humorCalendar';
+import Footer from '@/components/footer';
+import Saving from '@/components/saving';
 
 export default {
   components: {
     ChartsDisplay,
     Header,
-    HumorCalendar
+    HumorCalendar,
+    Footer,
+    Saving
   },
   data () {
     return {
@@ -28,12 +34,15 @@ export default {
   mounted() {
     if (localStorage.users) {
       let data = JSON.parse(localStorage.users);
+      let test = false;
       for (var i in data) {
         if(data[i].isLoggedIn) {
           this.loggedName = data[i].Name;
+          test = true;
           break;
         }
       }
+      if(!test) {this.$router.push({name: 'loading'});}
     }
     else {
       this.$router.push({name: 'loading'});
@@ -43,4 +52,11 @@ export default {
 </script>
 
 <style lang="css">
+.posCont {
+  min-height: 100%;
+  position: relative;
+}
+.posBod {
+  padding-bottom: 100px;
+}
 </style>

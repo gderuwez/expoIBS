@@ -1,25 +1,30 @@
 <template lang="html">
   <div class="">
-    <div class="w3-row">
-      <div class="w3-bar">
-        <div class="w3-center">
-          <i class="fas fa-chevron-left" v-on:click="subtractMonth"></i><h4 class="line w3-margin-left w3-margin-right">{{month}}  {{year}}</h4><i class="fas fa-chevron-right" v-on:click="addMonth"></i>
-        </div>
+    <div class="w3-cell-row w3-margin-top">
+      <div class="w3-cell">
+        <button type="button" class="w3-block w3-btn w3-deep-purple" name="button" v-on:click="subtractMonth" :class="{'w3-disabled' : limitBack}"><i class="fas fa-chevron-left"></i></button>
+      </div>
+      <div class="w3-cell w3-center w3-teal">
+        <h4 class="line w3-margin-left w3-margin-right">{{month}} {{year}}</h4>
+      </div>
+      <div class="w3-cell">
+        <button type="button" class="w3-block w3-btn w3-deep-purple" name="button" v-on:click="addMonth" :class="{'w3-disabled' : limitFront}"><i class="fas fa-chevron-right" ></i></button>
       </div>
     </div>
+
     <div class="w3-row">
       <div class="w3-half">
-        <h5 class="w3-center">Humors per days</h5>
+        <h5 class="w3-center">Moods per days</h5>
         <ul class="weekdays resize">
-          <li class="w3-grey w3-display-container" :key="index" v-for="(day, index) in days"><div class="w3-display-middle">{{day}}</div></li>
+          <li class="w3-blue-grey w3-display-container" :key="index" v-for="(day, index) in days"><div class="w3-display-middle">{{day}}</div></li>
         </ul>
         <ul class="dates resize leftClear">
           <li :key="'blank' + index + month" v-for="(blank, index) in firstDayOfMonth">&nbsp;</li>
           <li v-on:click="testing(index)" :key="date + index + month" v-for="(date, index) in daysInMonth" class="w3-display-container" :class="{'current-day': date == initialDate &amp;&amp; month == initialMonth && year == initialYear}">
-            <div class="w3-display-middle">{{date}}</div>
+            <div class="w3-display-middle CallendarNumber">{{date}}</div>
             <div v-for="(item, index) in colorHumors" :key="'piecharts' + index">
               <div v-if="index == date && item">
-                <pie-chart class="w3-display-middle" style="height:6vw" :donut="true" :legend="false" :data="item[0]" :colors="item[1]"></pie-chart>
+                <pie-chart class="w3-display-middle" style="height:10vw" :donut="true" :legend="false" :data="item[0]" :colors="item[1]"></pie-chart>
               </div>
             </div>
           </li>
@@ -28,15 +33,15 @@
       <div class="w3-half">
         <h5 class="w3-center">Types per days</h5>
         <ul class="weekdays resize">
-          <li class="w3-grey w3-display-container" :key="index" v-for="(day, index) in days"><div class="w3-display-middle">{{day}}</div></li>
+          <li class="w3-blue-grey w3-display-container" :key="index" v-for="(day, index) in days"><div class="w3-display-middle">{{day}}</div></li>
         </ul>
         <ul class="dates resize leftClear">
           <li :key="'blankb' + index + month" v-for="(blank, index) in firstDayOfMonth">&nbsp;</li>
           <li :key="'dateb' + date + index + month" v-for="(date, index) in daysInMonth" class="w3-display-container" :class="{'current-day': date == initialDate &amp;&amp; month == initialMonth && year == initialYear}">
-            <div class="w3-display-middle">{{date}}</div>
+            <div class="w3-display-middle CallendarNumber">{{date}}</div>
             <div v-for="(item, index) in colorType" :key="'piecharts2' + index">
               <div v-if="index == date && item">
-                <pie-chart class="w3-display-middle" style="height:6vw" :donut="true" :legend="false" :data="item[0]" :colors="item[1]"></pie-chart>
+                <pie-chart class="w3-display-middle" style="height:10vw" :donut="true" :legend="false" :data="item[0]" :colors="item[1]"></pie-chart>
               </div>
             </div>
           </li>
@@ -45,8 +50,8 @@
     </div>
     <div v-if="check" class="w3-modal w3-block">
       <div class="w3-modal-content w3-card">
-        <header class="w3-conatiner w3-teal">
-          <h2>test</h2>
+        <header class="w3-container w3-deep-purple">
+          <h3>Your food</h3>
           <span class="w3-button w3-display-topright" v-on:click="checking">&times;</span>
         </header>
         <div class="w3-container">
@@ -237,7 +242,27 @@ export default {
         }
       }
       return data;
-    }
+    },
+    limitBack () {
+      let check = this.year + '-' + this.monthIndex + '-01';
+      if (this.allData) {
+        let allData = this.allData;
+        let firstYear = allData[0].year;
+        let firstMonth = allData[0].month[0].idmonth;
+        let limit = firstYear + '-' + firstMonth + '-01';
+        return moment(check).isSameOrBefore(moment(limit));
+      }
+    },
+    limitFront () {
+      let check = this.year + '-' + this.monthIndex + '-01';
+      if(this.allData) {
+        let allData = this.allData;
+        let LastYear = allData[allData.length - 1].year;
+        let LastMonth = allData[allData.length - 1].month[allData[allData.length - 1].month.length - 1].idmonth;
+        let limit = LastYear + '-' + LastMonth + '-01';
+        return moment(check).isSameOrAfter(moment(limit));
+      }
+    },
   },
   methods: {
     addMonth() {
@@ -301,11 +326,18 @@ export default {
       width: 6vw;
       height: 6vw;
     }
+    .CallendarNumber {
+      font-size: 9px;
+    }
   }
   .leftClear{
     clear: left;
   }
   .current-day {
-    background-color: #666;
+    background-color: #ccc;
+  }
+  .CallendarNumber {
+    font-weight: bold;
+    font-size: 14px;
   }
 </style>

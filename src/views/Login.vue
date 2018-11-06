@@ -1,43 +1,62 @@
 <template lang="html">
-  <div class="">
+  <div :style="'height:'+window.height+'px'">
     <Header />
-    <form class="w3-container" action="" method="post">
+    <form class="w3-container posBod" action="" method="post">
       <div class="w3-section">
-        <div class="w3-row">
-          <label  class="" for="">UserName</label>
-          <input class="w3-input" type="text" placeholder="Enter your username" v-model="nameInput">
+        <div class="w3-row w3-section">
+          <div class="w3-col" style="width:50px"><i class="w3-xxlarge fas fa-lock"></i></div>
+          <div class="w3-rest">
+            <input class="w3-input w3-border" type="text" placeholder="Username" v-model="nameInput">
+          </div>
           <p v-if="errorMessage">{{errorMessage}}</p>
         </div>
-        <div class="w3-row">
-          <label for="">Password</label>
-          <input class="w3-input" type="password" placeholder="Enter your password" v-model="passwordInput">
+
+        <div class="w3-row w3-section">
+          <div class="w3-col" style="width:50px"><i class="w3-xxlarge fas fa-user"></i></div>
+          <div class="w3-rest">
+            <input class="w3-input w3-border" type="password" placeholder="Password" v-model="passwordInput">
+          </div>
           <p v-if="errorMessage2">{{errorMessage2}}</p>
         </div>
-
-
       </div>
-      <button class="w3-button w3-teal" type="submit" name="button" v-on:click="logging">Login</button>
-      <button class="w3-button w3-teal w3-margin-left" type="submit" name="button" v-on:click="registering">Register</button>
+      <div class="w3-container w3-center w3-indigo" name="login" v-on:click="logging">Login</div>
+      <div class="w3-container w3-indigo w3-center w3-margin-top" name="register" v-on:click="registering">Register</div>
     </form>
+    <Footer />
   </div>
 </template>
 
 <script>
 import Header from '@/components/header'
+import Footer from '@/components/footer'
 
 export default {
   components: {
-    Header
+    Header,
+    Footer
   },
   data () {
     return {
       nameInput: '',
       passwordInput: '',
       errorMessage: '',
-      errorMessage2: ''
+      errorMessage2: '',
+      window: {
+        height: 0
+      }
     }
   },
+  created() {
+    window.addEventListener('resize', this.handleResize)
+    this.handleResize();
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.handleResize)
+  },
   methods: {
+    handleResize() {
+      this.window.height = window.innerHeight;
+    },
     registering (e) {
       e.preventDefault();
       if (localStorage.users) {
@@ -119,4 +138,7 @@ export default {
 </script>
 
 <style lang="css">
+.posBod {
+  padding-bottom: 100px;
+}
 </style>
