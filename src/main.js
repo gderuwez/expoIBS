@@ -4,8 +4,11 @@ import router from './router'
 import VueChartkick from 'vue-chartkick'
 import Chart from 'chart.js'
 import VueSpinners from 'vue-spinners'
+
 // var VueScrollTo = require('vue-scrollto');
 import VueScrollTo from 'vue-scrollto';
+
+import './registerServiceWorker'
 
 Vue.config.productionTip = false
 
