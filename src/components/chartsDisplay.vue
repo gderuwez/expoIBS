@@ -9,7 +9,7 @@
     <div class="" v-if="check">
       <div class="w3-cell-row">
         <div class="w3-cell">
-          <button class="w3-block w3-btn w3-deep-purple" name="button" @click="monthBack" :class="{'w3-disabled' : limitBack}">
+          <button class="w3-block w3-btn w3-deep-purple" name="button" @click="monthBack" :class="{'w3-disabled' : limitBack}" :disabled="{'w3-disabled' : limitBack}">
             <i class="fas fa-chevron-left"></i>
           </button>
         </div>
@@ -17,7 +17,7 @@
           {{monthDisplayed}}
         </div>
         <div class="w3-cell">
-          <button class="w3-block w3-btn w3-deep-purple" name="button" @click="monthForward" :class="{'w3-disabled' : limitFront}">
+          <button class="w3-block w3-btn w3-deep-purple" name="button" @click="monthForward" :class="{'w3-disabled' : limitFront}" :disabled="{'w3-disabled' : limitFront}">
             <i class="fas fa-chevron-right"></i>
           </button>
         </div>

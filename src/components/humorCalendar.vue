@@ -2,13 +2,13 @@
   <div class="">
     <div class="w3-cell-row w3-margin-top">
       <div class="w3-cell">
-        <button type="button" class="w3-block w3-btn w3-deep-purple" name="button" v-on:click="subtractMonth" :class="{'w3-disabled' : limitBack}"><i class="fas fa-chevron-left"></i></button>
+        <button type="button" class="w3-block w3-btn w3-deep-purple" name="button" v-on:click="subtractMonth" :class="{'w3-disabled' : limitBack}" :disabled="{'w3-disabled' : limitBack}"><i class="fas fa-chevron-left"></i></button>
       </div>
       <div class="w3-cell w3-center w3-teal">
         <h4 class="line w3-margin-left w3-margin-right">{{month}} {{year}}</h4>
       </div>
       <div class="w3-cell">
-        <button type="button" class="w3-block w3-btn w3-deep-purple" name="button" v-on:click="addMonth" :class="{'w3-disabled' : limitFront}"><i class="fas fa-chevron-right" ></i></button>
+        <button type="button" class="w3-block w3-btn w3-deep-purple" name="button" v-on:click="addMonth" :class="{'w3-disabled' : limitFront}" :disabled="{'w3-disabled' : limitFront}"><i class="fas fa-chevron-right" ></i></button>
       </div>
     </div>
 

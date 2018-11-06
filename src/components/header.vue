@@ -6,8 +6,8 @@
       <Logout />
     </div>
     <div class="w3-bar w3-cyan">
-      <router-link to="/home" class="w3-bar-item bolded w3-button">Home</router-link>
-      <router-link to="/charts" class="w3-bar-item bolded w3-button">Charts</router-link>
+      <router-link to="/home" class="w3-bar-item bolded w3-button w3-large w3-text-indigo">Home</router-link>
+      <router-link to="/charts" class="w3-bar-item bolded w3-button w3-large w3-text-indigo">Charts</router-link>
       <!-- <router-link to="/update" class="w3-bar-item w3-button">Update</router-link> -->
     </div>
   </div>

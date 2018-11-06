@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/expoIBS/precache-manifest.fdf8f0468f9507d0fa7a0dc2c0b8de94.js"
+  "/expoIBS/precache-manifest.5dfd9a13798d8fc1bbf482d1747338a6.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "ibs-vue"});
