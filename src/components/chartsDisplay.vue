@@ -96,7 +96,6 @@ export default {
       }
     },
     displayByDay() {
-      // using ifss to select month / year
       let test2 = [];
       this.allData.forEach((year) => {
         let monthCheck = this.monthIndex;
