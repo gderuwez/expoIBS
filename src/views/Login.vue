@@ -19,8 +19,8 @@
           <p v-if="errorMessage2">{{errorMessage2}}</p>
         </div>
       </div>
-      <div class="w3-container w3-center w3-indigo" name="login" v-on:click="logging">Login</div>
-      <div class="w3-container w3-indigo w3-center w3-margin-top" name="register" v-on:click="registering">Register</div>
+      <div class="w3-container w3-center w3-indigo w3-btn w3-block" name="login" v-on:click="logging">Login</div>
+      <div class="w3-container w3-indigo w3-center w3-btn w3-block w3-margin-top" name="register" v-on:click="registering">Register</div>
     </form>
     <Footer />
   </div>
