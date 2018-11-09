@@ -1,211 +1,269 @@
 <template lang="html">
   <div class="">
     <div class="w3-container">
-      <div class="w3-cell-row w3-margin-bottom">
-        <div class="w3-container w3-mobile w3-btn w3-xlarge w3-indigo w3-cell w3-border w3-center" v-scroll-to="'#Moods'" @click="toggle('form1')">
-          Fill your moods
-        </div>
-
-        <form id='Moods' class="" @submit="newMood" action="" method="post" v-show="check.form1">
-          <div class="w3-container">
-            <div class="w3-half">
-              <div class="w3-deep-purple w3-border w3-center">
-                <label v-scroll-to="'#humeurSmall'" class="w3-xlarge w3-hide-medium w3-hide-large" for="" @click="toggle('toggle')">Moods <i class="fas fa-chevron-down" v-show="!check.toggle"></i><i class="fas fa-chevron-up" v-show="check.toggle"></i></label>
-                <label v-scroll-to="'#humeurMed'" class="w3-xlarge w3-hide-small" for="" @click="toggle('toggle')">Moods <i class="fas fa-chevron-down" v-show="!check.toggle"></i><i class="fas fa-chevron-up" v-show="check.toggle"></i></label>
-                <i class="w3-large w3-right far fa-question-circle" @click="modal(0)"></i>
-              </div>
-              <div class="empty">
-                <span class="w3-text-red" v-show="errorHumor">Choose at least one mood</span>
-              </div>
+      <div class="w3-cell-row">
+            <div class="w3-container w3-btn w3-xlarge w3-indigo w3-cell w3-border w3-center w3-hide-small" v-scroll-to="'#Moods'" @click="toggle('form1')">
+              Fill your moods
             </div>
-
-            <transition-group id='humeurSmall' name="list" tag="ul" class=" w3-ul w3-row w3-hide-medium w3-hide-large">
-              <li v-show="check.toggle" class="w3-third w3-border w3-border-teal BorderCollapse" v-on:click="toggleSup(item, humeurs, 'isActive')" v-bind:class="{'w3-teal' : item.isActive}" :key="item.value" v-for="item in humeursArray">{{item['text']}}</li>
-            </transition-group>
-
-            <div class="w3-half">
-              <div class="w3-center w3-deep-purple w3-border">
-                <label v-scroll-to="'#Date'" class="w3-xlarge" for="" @click="toggle('toggle8')">Date <i class="fas fa-chevron-down" v-show="!check.toggle8"></i><i class="fas fa-chevron-up" v-show="check.toggle8"></i></label>
-                <i class="w3-large w3-right far fa-question-circle" @click="modal(5)"></i>
-              </div>
-              <div class="empty"></div>
+            <div class="w3-container w3-margin-top w3-btn w3-xlarge w3-indigo w3-cell w3-border w3-center w3-hide-small" v-scroll-to="'#Foods'" @click="toggle('form2')">
+              Fill your foods
             </div>
-
-            <transition-group id="humeurMed" name="list" tag="ul" class=" w3-ul w3-row w3-hide-small">
-              <li v-show="check.toggle" class="w3-half w3-border w3-border-teal BorderCollapse" v-on:click="toggleSup(item, humeurs, 'isActive')" v-bind:class="{'w3-teal' : item.isActive}" :key="item.value" v-for="item in humeursArray">{{item['text']}}</li>
-            </transition-group>
-
-            <transition-group id="Date" tag="div" class="w3-row w3-margin-bottom" name="list">
-              <input v-show="check.toggle8" :key="'dateInput'" class="w3-input w3-border-teal BorderCollapse" type="date" name="" value="">
-            </transition-group>
+            <div class="w3-container w3-margin-top w3-mobile w3-btn w3-xlarge w3-indigo w3-cell w3-border w3-center w3-hide-small" v-scroll-to="'#Poops'" @click="toggle('form3')">
+              Fill your poops
+            </div>
           </div>
-          <div class="w3-display-container w3-padding">
-            <div class="w3-display-middle">
-              <button class="w3-btn w3-indigo" type="submit" name="button">New Mood</button>
+      <div class="w3-container w3-mobile w3-btn w3-xlarge w3-indigo w3-cell w3-border w3-center w3-hide-medium w3-hide-large" v-scroll-to="'#Moods'" @click="toggle('form1')">
+            Fill your moods
+          </div>
+
+      <form id='Moods' class="" @submit="newMood" action="" method="post" v-show="check.form1">
+            <div class="">
+              <div class="w3-half w3-container">
+                <div class="w3-deep-purple w3-border w3-center">
+                  <label v-scroll-to="'#humeurSmall'" class="w3-xlarge w3-hide-medium w3-hide-large" for="" @click="toggle('toggle')">Moods <i class="fas fa-chevron-down" v-show="!check.toggle"></i><i class="fas fa-chevron-up" v-show="check.toggle"></i></label>
+                  <label v-scroll-to="'#humeurMed'" class="w3-xlarge w3-hide-small" for="" @click="toggle('toggle')">Moods <i class="fas fa-chevron-down" v-show="!check.toggle"></i><i class="fas fa-chevron-up" v-show="check.toggle"></i></label>
+                  <i class="w3-large w3-right far fa-question-circle" @click="modal(0)"></i>
+                </div>
+                <div class="empty">
+                  <span class="w3-text-red" v-show="errorHumor">Choose at least one mood</span>
+                </div>
+              </div>
+
+              <transition-group id='humeurSmall' name="list" tag="ul" class=" w3-ul w3-row w3-hide-medium w3-hide-large">
+                <li v-show="check.toggle" class="w3-third w3-border w3-border-teal BorderCollapse" v-on:click="toggleSup(item, humeurs, 'isActive')" v-bind:class="{'w3-teal' : item.isActive}" :key="item.value" v-for="item in humeursArray">{{item['text']}}</li>
+              </transition-group>
+
+              <div class="w3-half w3-container">
+                <div class="w3-center w3-deep-purple w3-border">
+                  <label v-scroll-to="'#Date'" class="w3-xlarge" for="" @click="toggle('toggle8')">Date <i class="fas fa-chevron-down" v-show="!check.toggle8"></i><i class="fas fa-chevron-up" v-show="check.toggle8"></i></label>
+                  <i class="w3-large w3-right far fa-question-circle" @click="modal(5)"></i>
+                </div>
+                <div class="empty"></div>
+              </div>
+
+              <transition-group id="humeurMed" name="list" tag="ul" class=" w3-ul w3-row w3-hide-small">
+                <li v-show="check.toggle" class="w3-half w3-border w3-border-teal BorderCollapse" v-on:click="toggleSup(item, humeurs, 'isActive')" v-bind:class="{'w3-teal' : item.isActive}" :key="item.value" v-for="item in humeursArray">{{item['text']}}</li>
+              </transition-group>
+
+              <transition-group id="Date" tag="div" class="w3-row w3-margin-bottom" name="list">
+                <div key="divcalendar1" v-show="check.toggle8">
+                  <div class="w3-cell-row w3-margin-top">
+                    <div class="w3-cell">
+                      <button type="button" class="w3-block w3-btn w3-deep-purple" name="button" v-on:click="subtractMonth"><i class="fas fa-chevron-left"></i></button>
+                    </div>
+                    <div class="w3-cell w3-center w3-teal">
+                      <h4 class="line w3-margin-left w3-margin-right">{{month}} {{year}}</h4>
+                    </div>
+                    <div class="w3-cell">
+                      <button type="button" class="w3-block w3-btn w3-deep-purple" name="button" v-on:click="addMonth"><i class="fas fa-chevron-right" ></i></button>
+                    </div>
+                  </div>
+                  <ul key="ulcalendar1" class="weekdays resize">
+                    <li class="w3-blue-grey w3-display-container" :key="index" v-for="(day, index) in days"><div class="w3-display-middle">{{day}}</div></li>
+                  </ul>
+                  <ul key="ulcalendarbis" class="dates resize leftClear">
+                    <li :key="'blank' + index + month" v-for="(blank, index) in firstDayOfMonth">&nbsp;</li>
+                    <li v-on:click="testing(index, 0, year, month, 1)" :key="date + index + month" v-for="(date, index) in daysInMonth" class="w3-display-container" :class="{'w3-red': arrayOfDaysInMonth1[0] === index && arrayOfDaysInMonth1[1] === year && arrayOfDaysInMonth1[2] === month, 'current-day': date == initialDate &amp;&amp; month == initialMonth && year == initialYear}">
+                      <div class="w3-display-middle">{{date}}</div>
+                    </li>
+                  </ul>
+                </div>
+              </transition-group>
+            </div>
+            <div class="w3-container">
               <span class="w3-text-red" v-if="allow[0]">Please fill in the form</span>
+              <span class="w3-text-green" v-if="success[0]">Your moods was succesfully changed</span>
             </div>
+            <div class="w3-display-container w3-padding w3-margin-top">
+              <div class="w3-display-middle">
+                <button class="w3-btn w3-indigo" type="submit" name="button">New Mood</button>
+              </div>
+            </div>
+          </form>
+
+      <div class="w3-container w3-margin-top w3-mobile w3-btn w3-xlarge w3-indigo w3-cell w3-border w3-center w3-hide-medium w3-hide-large" v-scroll-to="'#Foods'" @click="toggle('form2')">
+            Fill your foods
           </div>
-        </form>
 
-        <div class="w3-container w3-margin-top w3-margin-bottom w3-mobile w3-btn w3-xlarge w3-indigo w3-cell w3-border w3-center" v-scroll-to="'#Foods'" @click="toggle('form2')">
-          Fill your foods
-        </div>
-
-        <form id='Foods' class="" @submit="newFood" action="" method="post" v-show="check.form2">
-          <div class="w3-container">
-            <div class="w3-half">
-              <div class=" w3-deep-purple w3-border w3-center">
-                <label v-scroll-to="'#breakfastSmall'" class="w3-xlarge w3-hide-medium w3-hide-large" for="" @click="toggle('toggle2')">Breakfast <i class="fas fa-chevron-down" v-show="!check.toggle2"></i><i class="fas fa-chevron-up" v-show="check.toggle2"></i></label>
-                <label v-scroll-to="'#breakfastMed'" class="w3-xlarge w3-hide-small" for="" @click="toggle('toggle2')">Breakfast <i class="fas fa-chevron-down" v-show="!check.toggle2"></i><i class="fas fa-chevron-up" v-show="check.toggle2"></i></label>
-                <i class="w3-large w3-right far fa-question-circle" @click="modal(1)"></i>
+      <form id='Foods' class="" @submit="newFood" action="" method="post" v-show="check.form2">
+            <div class="">
+              <div class="w3-half w3-container">
+                <div class=" w3-deep-purple w3-border w3-center">
+                  <label v-scroll-to="'#breakfastSmall'" class="w3-xlarge w3-hide-medium w3-hide-large" for="" @click="toggle('toggle2')">Breakfast <i class="fas fa-chevron-down" v-show="!check.toggle2"></i><i class="fas fa-chevron-up" v-show="check.toggle2"></i></label>
+                  <label v-scroll-to="'#breakfastMed'" class="w3-xlarge w3-hide-small" for="" @click="toggle('toggle2')">Breakfast <i class="fas fa-chevron-down" v-show="!check.toggle2"></i><i class="fas fa-chevron-up" v-show="check.toggle2"></i></label>
+                  <i class="w3-large w3-right far fa-question-circle" @click="modal(1)"></i>
+                </div>
+                <div class="empty"></div>
               </div>
-              <div class="empty"></div>
-            </div>
 
-            <transition-group id='breakfastSmall' tag="ul" class="w3-ul w3-row w3-hide-medium w3-hide-large" name="list">
-              <li v-show="check.toggle2" class="w3-third w3-border w3-border-teal BorderCollapse" v-on:click="toggleSup(item, breakfast, 'isActive1')" v-bind:class="{'w3-teal' : item.isActive1}" :key="'breakfast'+item.value" v-for="item in aliments">{{item.value}}</li>
-            </transition-group>
+              <transition-group id='breakfastSmall' tag="ul" class="w3-ul w3-row w3-hide-medium w3-hide-large" name="list">
+                <li v-show="check.toggle2" class="w3-third w3-border w3-border-teal BorderCollapse" v-on:click="toggleSup(item, breakfast, 'isActive1')" v-bind:class="{'w3-teal' : item.isActive1}" :key="'breakfast'+item.value" v-for="item in aliments">{{item.value}}</li>
+              </transition-group>
 
-            <!-- Lunch -->
-            <div class="w3-half">
-              <div class=" w3-deep-purple w3-border w3-center">
-                <label v-scroll-to="'#lunchSmall'" class="w3-xlarge w3-hide-medium w3-hide-large" for="" @click="toggle('toggle3')">Lunch <i class="fas fa-chevron-down" v-show="!check.toggle3"></i><i class="fas fa-chevron-up" v-show="check.toggle3"></i></label>
-                <label v-scroll-to="'#lunchMed'" class="w3-xlarge w3-hide-small" for="" @click="toggle('toggle3')">Lunch <i class="fas fa-chevron-down" v-show="!check.toggle3"></i><i class="fas fa-chevron-up" v-show="check.toggle3"></i></label>
-                <i class="w3-large w3-right far fa-question-circle" @click="modal(1)"></i>
+              <!-- Lunch -->
+              <div class="w3-half w3-container">
+                <div class=" w3-deep-purple w3-border w3-center">
+                  <label v-scroll-to="'#lunchSmall'" class="w3-xlarge w3-hide-medium w3-hide-large" for="" @click="toggle('toggle3')">Lunch <i class="fas fa-chevron-down" v-show="!check.toggle3"></i><i class="fas fa-chevron-up" v-show="check.toggle3"></i></label>
+                  <label v-scroll-to="'#lunchMed'" class="w3-xlarge w3-hide-small" for="" @click="toggle('toggle3')">Lunch <i class="fas fa-chevron-down" v-show="!check.toggle3"></i><i class="fas fa-chevron-up" v-show="check.toggle3"></i></label>
+                  <i class="w3-large w3-right far fa-question-circle" @click="modal(1)"></i>
+                </div>
+                <div class="empty"></div>
               </div>
-              <div class="empty"></div>
-            </div>
 
-            <transition-group id='lunchSmall' tag="ul" class=" w3-ul w3-row w3-hide-medium w3-hide-large" name="list">
-              <li v-show="check.toggle3" class="w3-third w3-border w3-border-teal BorderCollapse" v-on:click="toggleSup(item, lunch, 'isActive2')" v-bind:class="{'w3-teal' : item.isActive2}" :key="'lunch'+item.value" v-for="item in aliments">{{item.value}}</li>
-            </transition-group>
+              <transition-group id='lunchSmall' tag="ul" class=" w3-ul w3-row w3-hide-medium w3-hide-large" name="list">
+                <li v-show="check.toggle3" class="w3-third w3-border w3-border-teal BorderCollapse" v-on:click="toggleSup(item, lunch, 'isActive2')" v-bind:class="{'w3-teal' : item.isActive2}" :key="'lunch'+item.value" v-for="item in aliments">{{item.value}}</li>
+              </transition-group>
 
-            <transition-group id="breakfastMed" tag="ul" class=" w3-ul w3-row w3-hide-small" name="list">
-              <li v-show="check.toggle2" class="w3-third w3-border w3-border-teal BorderCollapse" v-on:click="toggleSup(item, breakfast, 'isActive1')" v-bind:class="{'w3-teal' : item.isActive1}" :key="'breakfast'+item.value" v-for="item in aliments">{{item.value}}</li>
-            </transition-group>
+              <transition-group id="breakfastMed" tag="ul" class=" w3-ul w3-row w3-hide-small" name="list">
+                <li v-show="check.toggle2" class="w3-third w3-border w3-border-teal BorderCollapse" v-on:click="toggleSup(item, breakfast, 'isActive1')" v-bind:class="{'w3-teal' : item.isActive1}" :key="'breakfast'+item.value" v-for="item in aliments">{{item.value}}</li>
+              </transition-group>
 
-            <transition-group id='lunchMed' tag="ul" class=" w3-ul w3-row w3-hide-small" name="list">
-              <li v-show="check.toggle3" class="w3-third w3-border w3-border-teal BorderCollapse" v-on:click="toggleSup(item, lunch, 'isActive2')" v-bind:class="{'w3-teal' : item.isActive2}" :key="'lunch'+item.value" v-for="item in aliments">{{item.value}}</li>
-            </transition-group>
+              <transition-group id='lunchMed' tag="ul" class=" w3-ul w3-row w3-hide-small" name="list">
+                <li v-show="check.toggle3" class="w3-third w3-border w3-border-teal BorderCollapse" v-on:click="toggleSup(item, lunch, 'isActive2')" v-bind:class="{'w3-teal' : item.isActive2}" :key="'lunch'+item.value" v-for="item in aliments">{{item.value}}</li>
+              </transition-group>
 
-            <div class="w3-half">
-              <div class="w3-center w3-deep-purple w3-border">
-                <label v-scroll-to="'#DinnerSmall'" class="w3-xlarge w3-hide-medium w3-hide-large" for="" @click="toggle('toggle4')">Dinner <i class="fas fa-chevron-down" v-show="!check.toggle4"></i><i class="fas fa-chevron-up" v-show="check.toggle4"></i></label>
-                <label v-scroll-to="'#DinnerMed'" class="w3-xlarge w3-hide-small" for="" @click="toggle('toggle4')">Dinner <i class="fas fa-chevron-down" v-show="!check.toggle4"></i><i class="fas fa-chevron-up" v-show="check.toggle4"></i></label>
-                <i class="w3-large w3-right far fa-question-circle" @click="modal(1)"></i>
+              <div class="w3-half w3-container">
+                <div class="w3-center w3-deep-purple w3-border">
+                  <label v-scroll-to="'#DinnerSmall'" class="w3-xlarge w3-hide-medium w3-hide-large" for="" @click="toggle('toggle4')">Dinner <i class="fas fa-chevron-down" v-show="!check.toggle4"></i><i class="fas fa-chevron-up" v-show="check.toggle4"></i></label>
+                  <label v-scroll-to="'#DinnerMed'" class="w3-xlarge w3-hide-small" for="" @click="toggle('toggle4')">Dinner <i class="fas fa-chevron-down" v-show="!check.toggle4"></i><i class="fas fa-chevron-up" v-show="check.toggle4"></i></label>
+                  <i class="w3-large w3-right far fa-question-circle" @click="modal(1)"></i>
+                </div>
+                <div class="empty"></div>
               </div>
-              <div class="empty"></div>
-            </div>
 
-            <transition-group id='DinnerSmall' tag="ul" class="w3-ul w3-row w3-hide-medium w3-hide-large" name="list">
-              <li v-show="check.toggle4" class="w3-third w3-border w3-border-teal BorderCollapse" v-on:click="toggleSup(item, dinner, 'isActive3')" v-bind:class="{'w3-teal' : item.isActive3}" :key="'Dinner'+item.value" v-for="item in aliments">{{item.value}}</li>
-            </transition-group>
+              <transition-group id='DinnerSmall' tag="ul" class="w3-ul w3-row w3-hide-medium w3-hide-large" name="list">
+                <li v-show="check.toggle4" class="w3-third w3-border w3-border-teal BorderCollapse" v-on:click="toggleSup(item, dinner, 'isActive3')" v-bind:class="{'w3-teal' : item.isActive3}" :key="'Dinner'+item.value" v-for="item in aliments">{{item.value}}</li>
+              </transition-group>
 
-            <div class="w3-half">
-              <div class="w3-center w3-deep-purple w3-border">
-                <label v-scroll-to="'#Date2'" class="w3-xlarge" for="" @click="toggle('toggle9')">Date <i class="fas fa-chevron-down" v-show="!check.toggle9"></i><i class="fas fa-chevron-up" v-show="check.toggle9"></i></label>
-                <i class="w3-large w3-right far fa-question-circle" @click="modal(5)"></i>
+              <div class="w3-half w3-container">
+                <div class="w3-center w3-deep-purple w3-border">
+                  <label v-scroll-to="'#Date2'" class="w3-xlarge" for="" @click="toggle('toggle9')">Date <i class="fas fa-chevron-down" v-show="!check.toggle9"></i><i class="fas fa-chevron-up" v-show="check.toggle9"></i></label>
+                  <i class="w3-large w3-right far fa-question-circle" @click="modal(5)"></i>
+                </div>
+                <div class="empty"></div>
               </div>
-              <div class="empty"></div>
+
+              <transition-group id="DinnerMed" tag="ul" class=" w3-ul w3-row w3-hide-small" name="list">
+                <li v-show="check.toggle4" class="w3-third w3-border w3-border-teal BorderCollapse" v-on:click="toggleSup(item, dinner, 'isActive3')" v-bind:class="{'w3-teal' : item.isActive3}" :key="'Dinner'+item.value" v-for="item in aliments">{{item.value}}</li>
+              </transition-group>
+
+              <transition-group id="Date2" tag="div" class="w3-row w3-margin-bottom" name="list">
+                <div key="divcalendar2" v-show="check.toggle9">
+                  <ul key="ulcalendar2" class="weekdays resize">
+                    <li class="w3-blue-grey w3-display-container" :key="index" v-for="(day, index) in days"><div class="w3-display-middle">{{day}}</div></li>
+                  </ul>
+                  <ul key="ulcalendar2bis" class="dates resize leftClear">
+                    <li :key="'blank' + index + month" v-for="(blank, index) in firstDayOfMonth">&nbsp;</li>
+                    <li v-on:click="testing(index, 1, year, month, 2)" :key="date + index + month" v-for="(date, index) in daysInMonth" class="w3-display-container" :class="{'w3-red': arrayOfDaysInMonth2[0] === index && arrayOfDaysInMonth2[1] === year && arrayOfDaysInMonth2[2] === month, 'current-day': date == initialDate &amp;&amp; month == initialMonth && year == initialYear}">
+                      <div class="w3-display-middle">{{date}}</div>
+                    </li>
+                  </ul>
+                </div>
+              </transition-group>
             </div>
-
-            <transition-group id="DinnerMed" tag="ul" class=" w3-ul w3-row w3-hide-small" name="list">
-              <li v-show="check.toggle4" class="w3-third w3-border w3-border-teal BorderCollapse" v-on:click="toggleSup(item, dinner, 'isActive3')" v-bind:class="{'w3-teal' : item.isActive3}" :key="'Dinner'+item.value" v-for="item in aliments">{{item.value}}</li>
-            </transition-group>
-
-            <transition-group id="Date2" tag="div" class="w3-row w3-margin-bottom" name="list">
-              <input v-show="check.toggle9" :key="'dateInput'" class="w3-input w3-border-teal BorderCollapse" type="date" name="" value="">
-            </transition-group>
-          </div>
-          <div class="w3-display-container w3-padding">
-            <div class="w3-display-middle">
-              <button class="w3-btn w3-indigo" type="submit" name="button">New Food</button>
+            <div class="w3-container">
               <span class="w3-text-red" v-if="allow[1]">Please fill in the form</span>
+              <span class="w3-text-green" v-if="success[1]">Your foods were succesfully selected</span>
             </div>
+            <div class="w3-display-container w3-padding w3-margin-top">
+              <div class="w3-display-middle">
+                <button class="w3-btn w3-indigo" type="submit" name="button">New Food</button>
+              </div>
+            </div>
+          </form>
+
+      <div class="w3-container w3-margin-top w3-mobile w3-btn w3-xlarge w3-indigo w3-cell w3-border w3-center w3-hide-medium w3-hide-large" v-scroll-to="'#Poops'" @click="toggle('form3')">
+            Fill your poops
           </div>
-        </form>
 
-        <div class="w3-container w3-mobile w3-btn w3-xlarge w3-indigo w3-cell w3-border w3-center" v-scroll-to="'#Poops'" @click="toggle('form3')">
-          Fill your poops
-        </div>
-
-        <form id='Poops' class="" @submit="newPoop" action="" method="post" v-show="check.form3">
-          <div class="w3-container">
-            <div class=" w3-half">
-              <div class="w3-center w3-deep-purple w3-border">
-                <label v-scroll-to="'#Type'" class="w3-xlarge w3-hide-medium w3-hide-large" for="" @click="toggle('toggle5')">Type <i class="fas fa-chevron-down" v-show="!check.toggle5"></i><i class="fas fa-chevron-up" v-show="check.toggle5"></i></label>
-                <label v-scroll-to="'#TypeMed'" class="w3-xlarge w3-hide-small" for="" @click="toggle('toggle5')">Type <i class="fas fa-chevron-down" v-show="!check.toggle5"></i><i class="fas fa-chevron-up" v-show="check.toggle5"></i></label>
-                <i class="w3-large w3-right far fa-question-circle" @click="modal(2)"></i>
-              </div>
-              <div class="empty"><span class="w3-text-red" v-show="errorType">Choose a type</span></div>
-            </div>
-
-            <transition-group id="Type" tag="ul" class="w3-ul w3-row w3-hide-medium w3-hide-large" name="list">
-              <li v-show="check.toggle5" class="w3-third w3-border w3-border-teal BorderCollapse" v-on:click="toggleSup2(item, typesOfPoop, poopType, 'isActive')" v-bind:class="{'w3-teal' : item.isActive}" :key="item.value" v-for="item in typesOfPoop">
-                <div class="centering" style="width:9vh;">
-                  <img :src="require('../assets/'+item.value+'.png')" class="w3-image" alt="">
+      <form id='Poops' class="" @submit="newPoop" action="" method="post" v-show="check.form3">
+            <div class="">
+              <div class=" w3-half w3-container">
+                <div class="w3-center w3-deep-purple w3-border">
+                  <label v-scroll-to="'#Type'" class="w3-xlarge w3-hide-medium w3-hide-large" for="" @click="toggle('toggle5')">Type <i class="fas fa-chevron-down" v-show="!check.toggle5"></i><i class="fas fa-chevron-up" v-show="check.toggle5"></i></label>
+                  <label v-scroll-to="'#TypeMed'" class="w3-xlarge w3-hide-small" for="" @click="toggle('toggle5')">Type <i class="fas fa-chevron-down" v-show="!check.toggle5"></i><i class="fas fa-chevron-up" v-show="check.toggle5"></i></label>
+                  <i class="w3-large w3-right far fa-question-circle" @click="modal(2)"></i>
                 </div>
-              </li>
-            </transition-group>
-
-            <!-- Color -->
-            <div class=" w3-half">
-              <div v-scroll-to="'#Color'" class="w3-center w3-deep-purple w3-border">
-                <label class="w3-xlarge" for="" @click="toggle('toggle6')">color <i class="fas fa-chevron-down" v-show="!check.toggle6"></i><i class="fas fa-chevron-up" v-show="check.toggle6"></i></label>
-                <i class="w3-large w3-right far fa-question-circle" @click="modal(3)"></i>
+                <div class="empty"><span class="w3-text-red" v-show="errorType">Choose a type</span></div>
               </div>
-              <div class="empty"><span class="w3-text-red" v-show="errorColor">Choose a Color</span></div>
-            </div>
 
-            <transition-group id="TypeMed" tag="ul" class=" w3-ul w3-row w3-hide-small" name="list">
-              <li v-show="check.toggle5" class="w3-third w3-border w3-border-teal BorderCollapse" v-on:click="toggleSup2(item, typesOfPoop, poopType, 'isActive')" v-bind:class="{'w3-teal' : item.isActive}" :key="item.value" v-for="item in typesOfPoop">
-                <div class="centering" style="width:9vh;">
-                  <img :src="require('../assets/'+item.value+'.png')" class="w3-image" alt="">
+              <transition-group id="Type" tag="ul" class="w3-ul w3-row w3-hide-medium w3-hide-large" name="list">
+                <li v-show="check.toggle5" class="w3-third w3-border w3-border-teal BorderCollapse" v-on:click="toggleSup2(item, typesOfPoop, poopType, 'isActive')" v-bind:class="{'w3-teal' : item.isActive}" :key="item.value" v-for="item in typesOfPoop">
+                  <div class="centering" style="width:9vh;">
+                    <img :src="require('../assets/'+item.value+'.png')" class="w3-image" alt="">
+                  </div>
+                </li>
+              </transition-group>
+
+              <!-- Color -->
+              <div class=" w3-half w3-container">
+                <div v-scroll-to="'#Color'" class="w3-center w3-deep-purple w3-border">
+                  <label class="w3-xlarge" for="" @click="toggle('toggle6')">color <i class="fas fa-chevron-down" v-show="!check.toggle6"></i><i class="fas fa-chevron-up" v-show="check.toggle6"></i></label>
+                  <i class="w3-large w3-right far fa-question-circle" @click="modal(3)"></i>
                 </div>
-              </li>
-            </transition-group>
-
-            <transition-group id="Color" tag="ul" class=" w3-ul w3-row" name="list">
-              <li v-show="check.toggle6" class="w3-half w3-border w3-border-teal BorderCollapse" v-on:click="toggleSup2(item, colorsofPoop, poopColor, 'isActive')" v-bind:class="{'w3-teal' : item.isActive}" :key="item['value']" v-for="item in colorsofPoop">{{item["text"]}}</li>
-            </transition-group>
-            <div class=" w3-half">
-              <div class="w3-center w3-deep-purple w3-border">
-                <label v-scroll-to="'#Time'" class="w3-xlarge w3-hide-medium w3-hide-large" for="" @click="toggle('toggle7')">time <i class="fas fa-chevron-down" v-show="!check.toggle7"></i><i class="fas fa-chevron-up" v-show="check.toggle7"></i></label>
-                <label v-scroll-to="'#TimeMed'" class="w3-xlarge w3-hide-small" for="" @click="toggle('toggle7')">time <i class="fas fa-chevron-down" v-show="!check.toggle7"></i><i class="fas fa-chevron-up" v-show="check.toggle7"></i></label>
-                <i class="w3-large w3-right far fa-question-circle" @click="modal(4)"></i>
+                <div class="empty"><span class="w3-text-red" v-show="errorColor">Choose a Color</span></div>
               </div>
-              <div class="empty"><span class="w3-text-red" v-show="errorTime">Choose a time</span></div>
-            </div>
 
-            <transition-group id="Time" tag="ul" class="w3-ul w3-row w3-hide-medium w3-hide-large" name="list">
-              <li v-show="check.toggle7" class="w3-third w3-border w3-border-teal BorderCollapse" v-on:click="toggleSup2(item, timesOfDay, time, 'isActive')" v-bind:class="{'w3-teal' : item.isActive}" :key="item.value" v-for="item in timesOfDay">{{item.value}}</li>
-            </transition-group>
+              <transition-group id="TypeMed" tag="ul" class=" w3-ul w3-row w3-hide-small" name="list">
+                <li v-show="check.toggle5" class="w3-third w3-border w3-border-teal BorderCollapse" v-on:click="toggleSup2(item, typesOfPoop, poopType, 'isActive')" v-bind:class="{'w3-teal' : item.isActive}" :key="item.value" v-for="item in typesOfPoop">
+                  <div class="centering" style="width:9vh;">
+                    <img :src="require('../assets/'+item.value+'.png')" class="w3-image" alt="">
+                  </div>
+                </li>
+              </transition-group>
 
-            <div class="w3-half">
-              <div class="w3-center w3-deep-purple w3-border">
-                <label v-scroll-to="'#Date'" class="w3-xlarge" for="" @click="toggle('toggle10')">Date <i class="fas fa-chevron-down" v-show="!check.toggle10"></i><i class="fas fa-chevron-up" v-show="check.toggle10"></i></label>
-                <i class="w3-large w3-right far fa-question-circle" @click="modal(5)"></i>
+              <transition-group id="Color" tag="ul" class=" w3-ul w3-row" name="list">
+                <li v-show="check.toggle6" class="w3-half w3-border w3-border-teal BorderCollapse" v-on:click="toggleSup2(item, colorsofPoop, poopColor, 'isActive')" v-bind:class="{'w3-teal' : item.isActive}" :key="item['value']" v-for="item in colorsofPoop">{{item["text"]}}</li>
+              </transition-group>
+              <div class=" w3-half w3-container">
+                <div class="w3-center w3-deep-purple w3-border">
+                  <label v-scroll-to="'#Time'" class="w3-xlarge w3-hide-medium w3-hide-large" for="" @click="toggle('toggle7')">time <i class="fas fa-chevron-down" v-show="!check.toggle7"></i><i class="fas fa-chevron-up" v-show="check.toggle7"></i></label>
+                  <label v-scroll-to="'#TimeMed'" class="w3-xlarge w3-hide-small" for="" @click="toggle('toggle7')">time <i class="fas fa-chevron-down" v-show="!check.toggle7"></i><i class="fas fa-chevron-up" v-show="check.toggle7"></i></label>
+                  <i class="w3-large w3-right far fa-question-circle" @click="modal(4)"></i>
+                </div>
+                <div class="empty"><span class="w3-text-red" v-show="errorTime">Choose a time</span></div>
               </div>
-              <div class="empty"></div>
+
+              <transition-group id="Time" tag="ul" class="w3-ul w3-row w3-hide-medium w3-hide-large" name="list">
+                <li v-show="check.toggle7" class="w3-third w3-border w3-border-teal BorderCollapse" v-on:click="toggleSup2(item, timesOfDay, time, 'isActive')" v-bind:class="{'w3-teal' : item.isActive}" :key="item.value" v-for="item in timesOfDay">{{item.value}}</li>
+              </transition-group>
+
+              <div class="w3-half w3-container">
+                <div class="w3-center w3-deep-purple w3-border">
+                  <label v-scroll-to="'#Date'" class="w3-xlarge" for="" @click="toggle('toggle10')">Date <i class="fas fa-chevron-down" v-show="!check.toggle10"></i><i class="fas fa-chevron-up" v-show="check.toggle10"></i></label>
+                  <i class="w3-large w3-right far fa-question-circle" @click="modal(5)"></i>
+                </div>
+                <div class="empty"></div>
+              </div>
+
+              <transition-group id="TimeMed" tag="ul" class="w3-ul w3-row w3-hide-small" name="list">
+                <li v-show="check.toggle7" class="w3-half w3-border w3-border-teal BorderCollapse" v-on:click="toggleSup2(item, timesOfDay, time, 'isActive')" v-bind:class="{'w3-teal' : item.isActive}" :key="item.value" v-for="item in timesOfDay">{{item.value}}</li>
+              </transition-group>
+
+              <transition-group id="Date" tag="div" class="w3-row w3-margin-bottom" name="list">
+                <div key="divcalendar3" v-show="check.toggle10">
+                  <ul key="ulcalendar3" class="weekdays resize">
+                    <li class="w3-blue-grey w3-display-container" :key="index" v-for="(day, index) in days"><div class="w3-display-middle">{{day}}</div></li>
+                  </ul>
+                  <ul key="ulcalendar3bis" class="dates resize leftClear">
+                    <li :key="'blank' + index + month" v-for="(blank, index) in firstDayOfMonth">&nbsp;</li>
+                    <li v-on:click="testing(index, 2, year, month, 3)" :key="date + index + month" v-for="(date, index) in daysInMonth" class="w3-display-container" :class="{'w3-red': arrayOfDaysInMonth3[0] === index && arrayOfDaysInMonth3[1] === year && arrayOfDaysInMonth3[2] === month, 'current-day': date == initialDate &amp;&amp; month == initialMonth && year == initialYear}">
+                      <div class="w3-display-middle">{{date}}</div>
+                    </li>
+                  </ul>
+                </div>
+              </transition-group>
             </div>
-
-            <transition-group id="TimeMed" tag="ul" class="w3-ul w3-row w3-hide-small" name="list">
-              <li v-show="check.toggle7" class="w3-half w3-border w3-border-teal BorderCollapse" v-on:click="toggleSup2(item, timesOfDay, time, 'isActive')" v-bind:class="{'w3-teal' : item.isActive}" :key="item.value" v-for="item in timesOfDay">{{item.value}}</li>
-            </transition-group>
-
-            <transition-group id="Date" tag="div" class="w3-row w3-margin-bottom" name="list">
-              <input v-show="check.toggle10" :key="'dateInput'" class="w3-input w3-border-teal BorderCollapse" type="date" name="" value="">
-            </transition-group>
-          </div>
-          <div class="w3-display-container w3-padding">
-            <div class="w3-display-middle">
-              <button class="w3-btn w3-indigo" type="submit" name="button">New Poop</button>
+            <div class="w3-container">
               <span class="w3-text-red" v-if="allow[2]">Please fill in the form</span>
+              <span class="w3-text-green" v-if="success[2]">A new Poop was succesfully added</span>
             </div>
-          </div>
-        </form>
-
-      </div>
+            <div class="w3-display-container w3-padding w3-margin-top">
+              <div class="w3-display-middle">
+                <button class="w3-btn w3-indigo" type="submit" name="button">New Poop</button>
+              </div>
+            </div>
+          </form>
     </div>
     <div v-if="check2" class="w3-modal w3-block">
       <div class="w3-modal-content w3-card">
@@ -254,11 +312,19 @@ export default {
   },
   data (){
     return {
+      today: moment(),
+      dateContext: moment(),
+      days: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
       check: {toggle: false, toggle2: false, toggle3: false, toggle4: false, toggle5: false, toggle6: false, toggle7: false, toggle8: false, toggle9: false, toggle10: false, form1: false, form2: false, form3: false},
       allow: [false, false, false],
+      success: [false, false, false],
+      datePicked: ['', '', ''],
       error: [],
       allData: {},
       time: [],
+      arrayOfDaysInMonth2: [],
+      arrayOfDaysInMonth3: [],
+      arrayOfDaysInMonth1: [],
       poopType: [],
       poopColor: [],
       humeurs: [],
@@ -296,6 +362,34 @@ export default {
     }
   },
   computed: {
+    year() {
+      return this.dateContext.format('Y');
+    },
+    month() {
+      return this.dateContext.format('MMMM');
+    },
+    monthIndex() {
+      return this.dateContext.get('month');
+    },
+    daysInMonth() {
+      return this.dateContext.daysInMonth();
+    },
+    currentDate() {
+      return this.dateContext.get('date');
+    },
+    firstDayOfMonth() {
+      var firstDay = moment(this.dateContext).subtract((this.currentDate - 1), 'days');
+      return firstDay.weekday();
+    },
+    initialDate() {
+        return this.today.get('date');
+    },
+    initialMonth() {
+        return this.today.format('MMMM');
+    },
+    initialYear() {
+        return this.today.format('Y');
+    },
     errorTime() {
       if(!this.time[0]) {return true;}
       else {return false;}
@@ -314,6 +408,22 @@ export default {
     }
   },
   methods: {
+    testing(value, which, year, month, last) {
+      let test = this.year + '-' + (this.monthIndex + 1) + '-' + (value + 1);
+      let result = moment(test);
+      this.datePicked[which] = result;
+      let array = "arrayOfDaysInMonth" + last;
+      this[array] = [];
+      this[array].push(value);
+      this[array].push(year);
+      this[array].push(month);
+    },
+    addMonth() {
+        this.dateContext = moment(this.dateContext).add(1, 'month');
+    },
+    subtractMonth() {
+        this.dateContext = moment(this.dateContext).subtract(1, 'month');
+    },
     toggle(input) {
       this.check[input] = !this.check[input]
     },
@@ -395,27 +505,17 @@ export default {
     newPoop (e) {
       e.preventDefault();
       this.allow[2] = false;
-
+      this.success[2] = false;
       let year = moment().year();
       let month = moment().month();
       let day = moment().date();
       let time = this.time[0];
       let poopType = this.poopType[0];
       let poopColor = this.poopColor[0];
-      // let humeurs = this.humeurs;
-      // let breakfast = this.breakfast;
-      // let lunch = this.lunch;
-      // let dinner = this.dinner;
-      for (var i = 0; i < (e.target.length); i++) {
-        if (e.target[i].type === "date") {
-          let value = e.target[i].value;
-          if (value) {
-            let array = value.split('-');
-            year = parseInt(array[0]);
-            month = parseInt((array[1] -1));
-            day = parseInt(array[2]);
-          }
-        }
+      if(this.datePicked[2] !== '') {
+        year = this.datePicked[2].year();
+        month = this.datePicked[2].month();
+        day = this.datePicked[2].date();
       }
 
       if(!this.errorColor && !this.errorTime && !this.errorType) {
@@ -450,7 +550,6 @@ export default {
 
         //if year doesn't exist, create new year
         if (!dataYearCheck) {
-          // dataToPush = {"year": year, "month": [{"idmonth": month, "day": [{"idday": day, "humeur" : humeurs, "poops": [{"idtime": time, "type": poopType, "color": poopColor}], "aliments": [{"meal":"breakfast", "food": breakfast}, {"meal":"lunch", "food": lunch}, {"meal":"dinner", "food": dinner}]}]}]};
           dataToPush = {"year": year, "month": [{"idmonth": month, "day": [{"idday": day, "humeur" : [], "poops": [{"idtime": time, "type": poopType, "color": poopColor}], "aliments": []}]}]};
           this.allData.push(dataToPush);
           this.allData.sort((a, b) => {
@@ -459,7 +558,6 @@ export default {
         }
         //if year already exist but not month, create new month
         if (dataYearCheck && !dataMonthCheck) {
-          // dataToPush = {"idmonth": month, "day": [{"idday": day, "humeur" : humeurs, "poops": [{"idtime": time, "type": poopType, "color": poopColor}], "aliments": [{"meal":"breakfast", "food": breakfast}, {"meal":"lunch", "food": lunch}, {"meal":"dinner", "food": dinner}]}]};
           dataToPush = {"idmonth": month, "day": [{"idday": day, "humeur" : [], "poops": [{"idtime": time, "type": poopType, "color": poopColor}], "aliments": []}]};
           this.allData[dataYearNum].month.push(dataToPush);
           this.allData[dataYearNum].month = this.allData[dataYearNum].month.sort((a, b) => {
@@ -468,7 +566,6 @@ export default {
         }
         //if month exist but not day, create new day
         if (dataMonthCheck && !dataDayCheck) {
-          // dataToPush = {"idday": day, "humeur" : humeurs, "poops": [{"idtime": time, "type": poopType, "color": poopColor}], "aliments": [{"meal":"breakfast", "food": breakfast}, {"meal":"lunch", "food": lunch}, {"meal":"dinner", "food": dinner}]};
           dataToPush = {"idday": day, "humeur" : [], "poops": [{"idtime": time, "type": poopType, "color": poopColor}], "aliments": []};
           this.allData[dataYearNum].month[dataMonthNum].day.push(dataToPush);
           this.allData[dataYearNum].month[dataMonthNum].day = this.allData[dataYearNum].month[dataMonthNum].day.sort((a, b) => {
@@ -478,8 +575,6 @@ export default {
         //if day already exist, push new poop
         if (dataDayCheck) {
           dataToPush = {"idtime": time, "type": poopType, "color": poopColor};
-          //this.allData[dataYearNum].month[dataMonthNum].day[dataDayNum].humeur = this.humeurs;
-          //this.allData[dataYearNum].month[dataMonthNum].day[dataDayNum].aliments = [{"meal":"breakfast", "food": breakfast}, {"meal":"lunch", "food": lunch}, {"meal":"dinner", "food": dinner}];
           this.allData[dataYearNum].month[dataMonthNum].day[dataDayNum].poops.push(dataToPush);
         }
 
@@ -490,33 +585,26 @@ export default {
         //
         this.JsonParsing();
         this.$emit('newData');
+        this.success[2] = true;
+        this.datePicked[2] = '';
       }
       else {this.allow[2] = true;}
     },
     newFood (e) {
       e.preventDefault();
       this.allow[1] = false;
+      this.success[1] = false;
       let test = true;
       let year = moment().year();
       let month = moment().month();
       let day = moment().date();
-      // let time = this.time[0];
-      // let poopType = this.poopType[0];
-      // let poopColor = this.poopColor[0];
-      // let humeurs = this.humeurs;
       let breakfast = this.breakfast;
       let lunch = this.lunch;
       let dinner = this.dinner;
-      for (var i = 0; i < (e.target.length); i++) {
-        if (e.target[i].type === "date") {
-          let value = e.target[i].value;
-          if (value) {
-            let array = value.split('-');
-            year = parseInt(array[0]);
-            month = parseInt((array[1] -1));
-            day = parseInt(array[2]);
-          }
-        }
+      if(this.datePicked[1] !== '') {
+        year = this.datePicked[1].year();
+        month = this.datePicked[1].month();
+        day = this.datePicked[1].date();
       }
 
       if(test) {
@@ -551,7 +639,6 @@ export default {
 
         //if year doesn't exist, create new year
         if (!dataYearCheck) {
-          // dataToPush = {"year": year, "month": [{"idmonth": month, "day": [{"idday": day, "humeur" : humeurs, "poops": [{"idtime": time, "type": poopType, "color": poopColor}], "aliments": [{"meal":"breakfast", "food": breakfast}, {"meal":"lunch", "food": lunch}, {"meal":"dinner", "food": dinner}]}]}]};
           dataToPush = {"year": year, "month": [{"idmonth": month, "day": [{"idday": day, "humeur" : [], "poops": [], "aliments": [{"meal":"breakfast", "food": breakfast}, {"meal":"lunch", "food": lunch}, {"meal":"dinner", "food": dinner}]}]}]};
           this.allData.push(dataToPush);
           this.allData.sort((a, b) => {
@@ -560,7 +647,6 @@ export default {
         }
         //if year already exist but not month, create new month
         if (dataYearCheck && !dataMonthCheck) {
-          // dataToPush = {"idmonth": month, "day": [{"idday": day, "humeur" : humeurs, "poops": [{"idtime": time, "type": poopType, "color": poopColor}], "aliments": [{"meal":"breakfast", "food": breakfast}, {"meal":"lunch", "food": lunch}, {"meal":"dinner", "food": dinner}]}]};
           dataToPush = {"idmonth": month, "day": [{"idday": day, "humeur" : [], "poops": [], "aliments": [{"meal":"breakfast", "food": breakfast}, {"meal":"lunch", "food": lunch}, {"meal":"dinner", "food": dinner}]}]};
           this.allData[dataYearNum].month.push(dataToPush);
           this.allData[dataYearNum].month = this.allData[dataYearNum].month.sort((a, b) => {
@@ -569,7 +655,6 @@ export default {
         }
         //if month exist but not day, create new day
         if (dataMonthCheck && !dataDayCheck) {
-          // dataToPush = {"idday": day, "humeur" : humeurs, "poops": [{"idtime": time, "type": poopType, "color": poopColor}], "aliments": [{"meal":"breakfast", "food": breakfast}, {"meal":"lunch", "food": lunch}, {"meal":"dinner", "food": dinner}]};
           dataToPush = {"idday": day, "humeur" : [], "poops": [], "aliments": [{"meal":"breakfast", "food": breakfast}, {"meal":"lunch", "food": lunch}, {"meal":"dinner", "food": dinner}]};
           this.allData[dataYearNum].month[dataMonthNum].day.push(dataToPush);
           this.allData[dataYearNum].month[dataMonthNum].day = this.allData[dataYearNum].month[dataMonthNum].day.sort((a, b) => {
@@ -578,10 +663,7 @@ export default {
         }
         //if day already exist, push new poop
         if (dataDayCheck) {
-          // dataToPush = {"idtime": time, "type": poopType, "color": poopColor};
-          // this.allData[dataYearNum].month[dataMonthNum].day[dataDayNum].humeur = this.humeurs;
           this.allData[dataYearNum].month[dataMonthNum].day[dataDayNum].aliments = [{"meal":"breakfast", "food": breakfast}, {"meal":"lunch", "food": lunch}, {"meal":"dinner", "food": dinner}];
-          // this.allData[dataYearNum].month[dataMonthNum].day[dataDayNum].poops.push(dataToPush);
         }
 
         const parsed = JSON.stringify(this.allData);
@@ -591,27 +673,23 @@ export default {
         //
         this.JsonParsing();
         this.$emit('newData');
+        this.success[1] = true;
+        this.datePicked[1] = '';
       }
       else {this.allow[1] = true;}
     },
     newMood (e) {
       e.preventDefault();
       this.allow[0] = false;
-
+      this.success[0] = false;
       let year = moment().year();
       let month = moment().month();
       let day = moment().date();
       let humeurs = this.humeurs;
-      for (var i = 0; i < (e.target.length); i++) {
-        if (e.target[i].type === "date") {
-          let value = e.target[i].value;
-          if (value) {
-            let array = value.split('-');
-            year = parseInt(array[0]);
-            month = parseInt((array[1] -1));
-            day = parseInt(array[2]);
-          }
-        }
+      if(this.datePicked[0] !== '') {
+        year = this.datePicked[0].year();
+        month = this.datePicked[0].month();
+        day = this.datePicked[0].date();
       }
 
       if(!this.errorHumor) {
@@ -680,6 +758,8 @@ export default {
         //
         this.JsonParsing();
         this.$emit('newData');
+        this.success[0] = true;
+        this.datePicked[0] = '';
       }
       else {this.allow[0] = true;}
     }
@@ -709,5 +789,40 @@ export default {
   }
   .empty {
     height: 20px;
+  }
+  .weekdays li, .dates li {
+    list-style:none;
+    float:left;
+    padding: 5px 10px;
+    border: 1px solid #eee;
+  }
+  .line {
+    display: inline;
+  }
+  .resize li {
+    width: 12vw;
+    height: 12vw;
+  }
+  .resize {
+    padding-inline-start: 20px;
+  }
+  @media (min-width:601px) {
+    .resize li {
+      width: 8vw;
+      height: 8vw;
+    }
+    .CallendarNumber {
+      font-size: 9px;
+    }
+  }
+  .leftClear{
+    clear: left;
+  }
+  .current-day {
+    background-color: #ccc;
+  }
+  .CallendarNumber {
+    font-weight: bold;
+    font-size: 14px;
   }
 </style>

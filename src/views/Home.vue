@@ -10,6 +10,9 @@
         <ScatInput @newData="newData" :loggedName="loggedName"/>
       </div>
     </div>
+    <div class="">
+
+    </div>
     <Footer />
   </div>
 </template>
@@ -70,6 +73,9 @@ export default {
 </script>
 
 <style lang="css">
+html, body {
+  height: 100%;
+}
 .posCont {
   min-height: 100%;
   position: relative;
