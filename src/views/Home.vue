@@ -3,7 +3,7 @@
     <Header />
     <div class="posBod">
       <Sequential @newData="newData" :dataSubmit="dataSubmit" :loggedName="loggedName"/>
-      <!-- <Reminder :loggedName="loggedName" /> -->
+      <Reminder :loggedName="loggedName" />
       <div>
         <!-- <TimeInput :loggedName="loggedName" /> -->
         <HumorOfTheDay :loggedName="loggedName"/>

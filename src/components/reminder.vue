@@ -1,7 +1,7 @@
 <template lang="html">
   <div v-if="close" class="w3-modal w3-block">
     <div class="w3-modal-content w3-card">
-      <header class="w3-conatiner w3-teal">
+      <header class="w3-container w3-teal">
         <h2>Notice</h2>
         <span class="w3-button w3-display-topright" v-on:click="checking">&times;</span>
       </header>
